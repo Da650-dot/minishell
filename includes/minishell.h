@@ -147,6 +147,10 @@ char	*find_executable(char *cmd, char **envp);
 /* ======================= EXPANSION ======================= */
 char	*expand_variables(char *str, t_data *data);
 char	**expand_args(char **args, t_data *data);
+char	*expand_variables(char *str, t_data *data);
+char	**expand_args(char **args, t_data *data);
+char	*process_dollar(char *str, int *i, t_data *data);
+char	*append_str(char *result, char *to_append);
 
 /* ======================= EXECUTOR MINIMAL ======================= */
 void	process_pipeline(t_pipeline *pipeline, t_data *data);

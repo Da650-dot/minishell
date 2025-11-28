@@ -67,3 +67,4 @@ void	process_pipeline(t_pipeline *pipeline, t_data *data)
 	print_pipeline(pipeline);
 	execute_simple_builtin(pipeline, data);
 }
+
