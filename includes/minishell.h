@@ -37,6 +37,7 @@ typedef struct s_cmd
 	char	*output_file;
 	bool	append;
 	char	*heredoc_delim;
+	int		word_count; 
 }	t_cmd;
 
 typedef struct s_pipeline
@@ -82,7 +83,6 @@ t_token		*tokenize(char *input);
 void		add_token(t_token **head, t_token *new_token);
 void		free_tokens(t_token *tokens);
 void		print_tokens(t_token *tokens);
-void		test_lexer(void);
 char		*extract_word(char *input, int *i);
 t_token		*handle_redirect(char *input, int *i);
 char		*ft_append_char(char *str, char c);
@@ -113,10 +113,42 @@ void		print_error(char *cmd, char *arg, char *msg);
 bool		is_only_spaces(char *str);
 int			handle_args(int argc, char **argv);
 
+/* ======================= BUILT-INS ======================= */
+int		builtin_echo(char **args);
+int		builtin_cd(char **args, t_data *data);
+int		builtin_pwd(void);
+int		builtin_export(char **args, t_data *data);
+int		builtin_unset(char **args, t_data *data);
+int		builtin_env(char **envp);
+int		builtin_exit(char **args, t_data *data);
+bool	is_builtin(char *cmd);
+int		execute_builtin(char **args, t_data *data);
+
+/* ======================= ENV MANIPULATION ======================= */
+char	**add_env_var(char **envp, char *new_var);
+char	**remove_env_var(char **envp, char *key);
+bool	is_valid_identifier(char *str);
+int		find_env_index(char **envp, char *key);
+
+
 /* ======================= TOKEN UTILS ======================= */
 bool		is_operator(t_token *token);
 bool		is_redirect(t_token *token);
 bool		validate_tokens(t_token *tokens);
 int			count_tokens(t_token *tokens);
+
+
+/* ======================= PERMISSIONS ======================= */
+bool	check_execute_permission(char *path);
+bool	check_read_permission(char *path);
+bool	check_write_permission(char *path);
+char	*find_executable(char *cmd, char **envp);
+
+/* ======================= EXPANSION ======================= */
+char	*expand_variables(char *str, t_data *data);
+char	**expand_args(char **args, t_data *data);
+
+/* ======================= EXECUTOR MINIMAL ======================= */
+void	process_pipeline(t_pipeline *pipeline, t_data *data);
 
 #endif
