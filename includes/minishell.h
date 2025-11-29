@@ -155,4 +155,17 @@ char	*append_str(char *result, char *to_append);
 /* ======================= EXECUTOR MINIMAL ======================= */
 void	process_pipeline(t_pipeline *pipeline, t_data *data);
 
+/* ======================= EXECUTOR HELPERS (scaffolding) =========== */
+/* Resolve command path using PATH or return strdup(cmd) if contains '/'.
+ * Returns newly allocated string or NULL. */
+char	*resolve_command_path(char *cmd, t_data *data);
+
+/* Spawn a child and exec the given path with args and envp.
+ * Returns child exit code (or 127/126 on error). */
+int	spawn_and_exec(char *path, char **args, char **envp, t_data *data);
+
+/* High-level entry to execute external commands (stub scaffolding).
+ * Should perform lookup, fork/exec and wait, returning exit status. */
+int	execute_external(t_cmd *cmd, t_data *data);
+
 #endif

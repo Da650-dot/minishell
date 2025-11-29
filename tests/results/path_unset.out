@@ -1,0 +1,88 @@
+==== Running: path_unset
+--- COMMANDS ---
+unset PATH
+ls
+echo $?
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0munset PATH
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["unset", "PATH"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["unset", "PATH"]
+==============================
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mls
+minishell: ls: command not found
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["ls"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["ls"]
+==============================
+
+[31m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [31m✗ [0mecho $?
+127
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "$?"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "127"]
+==============================
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
+exit
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+--- EXIT STATUS ---
+(see output capture)

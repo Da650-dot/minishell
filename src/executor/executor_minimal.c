@@ -50,9 +50,8 @@ static void	execute_simple_builtin(t_pipeline *pipeline, t_data *data)
 		data->exit_status = execute_builtin(cmd->args, data);
 	else
 	{
-		printf("⚠️  Comando '%s' não é um built-in.\n", cmd->args[0]);
-		printf("    Comandos externos serão implementados pelo executor completo.\n");
-		data->exit_status = 127;
+		/* Try to execute external command (absolute path or via PATH) */
+		data->exit_status = execute_external(cmd, data);
 	}
 }
 

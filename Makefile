@@ -43,6 +43,7 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(BUILTINS_DIR)/env_manipulation.c \
 	   $(BUILTINS_DIR)/builtin_utils.c \
 	   $(EXECUTOR_DIR)/executor_minimal.c \
+ 	$(EXECUTOR_DIR)/exec_helpers.c \
 	   $(EXECUTOR_DIR)/expansion.c \
 	   $(EXECUTOR_DIR)/expansion_utils.c \
 	   $(PERMISSIONS_DIR)/permissions.c
