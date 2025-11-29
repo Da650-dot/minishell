@@ -1,7 +1,8 @@
-==== Running: redirections
+==== Running: heredoc_basic
 --- COMMANDS ---
-echo teste > out.txt
-cat < out.txt
+cat <<EOF
+hello
+EOF
 exit 0
 --- OUTPUT ---
 
@@ -12,33 +13,13 @@ exit 0
 
   Digite 'exit' ou pressione Ctrl-D para sair
 
-[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho teste > out.txt
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "teste"]
-  Output: > out.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "teste"]
-  Output: > out.txt
-==============================
-
-[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat < out.txt
-teste
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat <<EOF
 
 ========== PIPELINE ==========
 
   ---- Comando 1 ----
   Args: ["cat"]
-  Input:  < out.txt
+  Heredoc: << EOF
 ==============================
 
 (Expander e executor serão implementados)
@@ -48,9 +29,12 @@ teste
 
   ---- Comando 1 ----
   Args: ["cat"]
-  Input:  < out.txt
+  Heredoc: << EOF
 ==============================
 
+> hello
+> EOF
+hello
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
 
@@ -71,4 +55,5 @@ exit
 
 --- EXIT STATUS ---
 (see output capture)
-[INFO] redirections (no assertion)
+--- ASSERTION ---
+ASSERT PASS: contains 'hello'

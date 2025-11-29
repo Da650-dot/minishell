@@ -89,6 +89,10 @@ run_test "pwd_cd" $'pwd\ncd ..\npwd\nexit 0'
 run_test "path_unset" $'unset PATH\nls\necho $?\nexit 0'
 run_test "quotes" $'echo "texto com espaço"\necho \"$USER\"\nexit 0'
 run_test "redirections" $'echo teste > out.txt\ncat < out.txt\nexit 0'
+run_test "redirections_overwrite" $'echo first > out_rw.txt\necho second > out_rw.txt\ncat out_rw.txt\nexit 0' "SUB:second"
+run_test "redirections_append" $'echo line1 > out_ap.txt\necho line2 >> out_ap.txt\ncat out_ap.txt\nexit 0' "SUB:line2"
+run_test "redirections_stderr" $'/bin/ls /nonexistent 2> err.txt\ncat err.txt\nexit 0' "SUB:No such"
+run_test "redirections_input_wc" $'echo abc > in_wc.txt\nwc -c < in_wc.txt\nexit 0' "NUM:4"
 run_test "pipes" $'echo foo | wc -c\nexit 0'
 run_test "pipes" $'echo foo | wc -c\nexit 0' "NUM:4"
 run_test "single_quotes" $"echo 'texto com $HOME e | pipe'\necho '\''\'\'\'empty\''\nexit 0"
@@ -107,3 +111,28 @@ run_test "pipes_invalid_middle" $'echo hi | invalidcmd | wc -c\necho $?\nexit 0'
 run_test "pipes_invalid_middle" $'echo hi | invalidcmd | wc -c\necho $?\nexit 0' "SUB:command not found"
 
 echo "All tests written to $OUTDIR"
+
+# Heredoc tests
+run_test "heredoc_basic" "cat <<EOF
+hello
+EOF
+exit 0" "SUB:hello"
+
+run_test "heredoc_expand" "export X=world
+cat <<EOF
+a \$X
+EOF
+exit 0" "SUB:world"
+
+run_test "heredoc_quoted" "export X=world
+cat <<'EOF'
+a \$X
+EOF
+exit 0" "SUB:\$X"
+
+run_test "heredoc_pipe" "cat <<EOF | wc -c
+hello
+EOF
+exit 0" "NUM:6"
+
+echo "Heredoc tests written to $OUTDIR"

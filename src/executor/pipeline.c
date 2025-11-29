@@ -64,10 +64,11 @@ static void	child_exec_cmd(t_cmd *cmd, t_data *data, int in_fd, int out_fd, int 
         i++;
     }
 
-    /* Redirections are not yet implemented: warn and ignore */
+    /* Apply redirections in the child (if any) */
     if (cmd->input_file || cmd->output_file || cmd->heredoc_delim)
     {
-        printf("⚠️  Redirecionamentos ainda não implementados. Ignorando em child.\n");
+        if (apply_redirections(cmd) == -1)
+            _exit(1);
     }
 
     if (!cmd->args || !cmd->args[0])
@@ -110,6 +111,33 @@ void	execute_pipeline(t_pipeline *pipeline, t_data *data)
     n = count_cmds(pipeline);
     if (n <= 0)
         return;
+    /* Prepare heredocs for all commands in parent before forking children */
+    {
+        t_pipeline *it = pipeline;
+        while (it)
+        {
+            if (it->cmd && it->cmd->heredoc_delim)
+            {
+                if (prepare_heredoc(it->cmd, data) == -1)
+                {
+                    /* cleanup any heredoc fds already created */
+                    t_pipeline *c = pipeline;
+                    while (c)
+                    {
+                        if (c->cmd && c->cmd->heredoc_fd >= 0)
+                        {
+                            close(c->cmd->heredoc_fd);
+                            c->cmd->heredoc_fd = -1;
+                        }
+                        c = c->next;
+                    }
+                    /* interrupted or error: set exit and abort pipeline */
+                    return;
+                }
+            }
+            it = it->next;
+        }
+    }
     if (n == 1)
     {
         /* Single command pipeline: parent should handle builtin vs external */
@@ -120,7 +148,28 @@ void	execute_pipeline(t_pipeline *pipeline, t_data *data)
             return;
         }
         if (is_builtin(cmd->args[0]))
-            data->exit_status = execute_builtin(cmd->args, data);
+        {
+            if (cmd->input_file || cmd->output_file || cmd->heredoc_delim)
+            {
+                t_redirect_save save;
+                if (save_stdio(&save) == -1)
+                {
+                    print_error("dup", NULL, "failed to backup stdio");
+                    data->exit_status = 1;
+                    return;
+                }
+                if (apply_redirections(cmd) == -1)
+                {
+                    restore_stdio(&save);
+                    data->exit_status = 1;
+                    return;
+                }
+                data->exit_status = execute_builtin(cmd->args, data);
+                restore_stdio(&save);
+            }
+            else
+                data->exit_status = execute_builtin(cmd->args, data);
+        }
         else
             data->exit_status = execute_external(cmd, data);
         return;

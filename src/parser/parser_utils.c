@@ -12,6 +12,7 @@ t_cmd	*new_cmd(void)
 	cmd->output_file = NULL;
 	cmd->append = false;
 	cmd->heredoc_delim = NULL;
+	cmd->heredoc_fd = -1;
 	return (cmd);
 }
 
