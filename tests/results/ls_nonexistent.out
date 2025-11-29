@@ -1,0 +1,51 @@
+==== Running: ls_nonexistent
+--- COMMANDS ---
+/bin/ls /nonexistent
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0m/bin/ls /nonexistent
+/bin/ls: cannot access '/nonexistent': No such file or directory
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["/bin/ls", "/nonexistent"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["/bin/ls", "/nonexistent"]
+==============================
+
+[31m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [31m✗ [0mexit 0
+exit
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+--- EXIT STATUS ---
+(see output capture)
