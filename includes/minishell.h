@@ -154,6 +154,7 @@ char	*append_str(char *result, char *to_append);
 
 /* ======================= EXECUTOR MINIMAL ======================= */
 void	process_pipeline(t_pipeline *pipeline, t_data *data);
+void	execute_pipeline(t_pipeline *pipeline, t_data *data);
 
 /* ======================= EXECUTOR HELPERS (scaffolding) =========== */
 /* Resolve command path using PATH or return strdup(cmd) if contains '/'.

@@ -1,6 +1,6 @@
-==== Running: builtin_echo
+==== Running: pipes_ls_grep
 --- COMMANDS ---
-echo world
+ls | grep src
 exit 0
 --- OUTPUT ---
 
@@ -11,13 +11,17 @@ exit 0
 
   Digite 'exit' ou pressione Ctrl-D para sair
 
-[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho world
-world
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mls | grep src
+src
 
 ========== PIPELINE ==========
 
   ---- Comando 1 ----
-  Args: ["echo", "world"]
+  Args: ["ls"]
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["grep", "src"]
 ==============================
 
 (Expander e executor serão implementados)
@@ -26,7 +30,11 @@ world
 ========== PIPELINE ==========
 
   ---- Comando 1 ----
-  Args: ["echo", "world"]
+  Args: ["ls"]
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["grep", "src"]
 ==============================
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
@@ -49,4 +57,5 @@ exit
 
 --- EXIT STATUS ---
 (see output capture)
-[INFO] builtin_echo (no assertion)
+--- ASSERTION ---
+ASSERT PASS: contains 'src'

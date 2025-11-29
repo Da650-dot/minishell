@@ -2,7 +2,7 @@
 
 Resumo rápido
 - Local dos logs: `tests/results/` (cada caso gerou um `*.out`).
-- Status geral: lexer+parser+builtins funcionam para a maioria dos casos; execução externa (PATH/absoluto) foi implementada; faltam correções em aspas e implementação de pipes/redirecionamentos.
+- Status geral: lexer+parser+builtins funcionam para a maioria dos casos; execução externa (PATH/absoluto) foi implementada; faltam correções em aspas e implementação de redirecionamentos (pipes implementados).
 
 Tabela resumida
 
@@ -19,7 +19,7 @@ Tabela resumida
 | `exit` | PASS | `tests/results/builtin_echo.out` | encerra REPL |
 | Expansão `$VAR` | PASS | `tests/results/export_unset.out` | `$TEST_AI` → `abc` |
 | Expansão `$?` | PASS | `tests/results/return_value.out` | reflete exit do filho |
-| Pipes (`|`) | PARTIAL | `tests/results/pipes.out` | parser reconhece, executor só roda 1º comando |
+| Pipes (`|`) | PASS | `tests/results/pipes.out`, `tests/results/pipes_simple.out`, `tests/results/pipes_three.out`, `tests/results/pipes_ls_grep.out`, `tests/results/pipes_builtin_middle.out`, `tests/results/pipes_invalid_middle.out` | pipelines básicos executam (fork/pipe/dup2/wait) |
 | Redirecionamentos (`<`, `>`) | PARTIAL | `tests/results/redirections.out` | parser reconhece, exec ignorado |
 | Aspas duplas (`"..."`) | FAIL | `tests/results/quotes.out` | aspas ainda aparecem em `args` |
 | Aspas simples (`'...'`) | FAIL | `tests/results/single_quotes.out` | tokenização incorreta |
@@ -33,6 +33,7 @@ Principais arquivos tocados nesta sessão
 - `src/executor/executor_minimal.c` — roteamento para `execute_external()` quando não for builtin
 - `includes/minishell.h` — protótipos adicionados
 - `Makefile` — inclusão de `exec_helpers.c` na lista de srcs
+ - `src/executor/pipeline.c` — implementação de pipes (forks, pipe(), dup2(), wait)
 - `tests/run_mandatory_tests.sh` e `tests/results/*.out` — script e logs gerados
 
 Recomendações (prioridade)

@@ -49,3 +49,4 @@ exit
 
 --- EXIT STATUS ---
 (see output capture)
+[INFO] ls_nonexistent (no assertion)

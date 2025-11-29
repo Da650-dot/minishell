@@ -1,6 +1,7 @@
-==== Running: builtin_echo
+==== Running: pipes_builtin_middle
 --- COMMANDS ---
-echo world
+echo hello | pwd
+echo $?
 exit 0
 --- OUTPUT ---
 
@@ -11,13 +12,17 @@ exit 0
 
   Digite 'exit' ou pressione Ctrl-D para sair
 
-[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho world
-world
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho hello | pwd
+/nfs/homes/jgiancol/Projetos/M3/Minishell/GitHub_shell/Minishell_github
 
 ========== PIPELINE ==========
 
   ---- Comando 1 ----
-  Args: ["echo", "world"]
+  Args: ["echo", "hello"]
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["pwd"]
 ==============================
 
 (Expander e executor serão implementados)
@@ -26,7 +31,29 @@ world
 ========== PIPELINE ==========
 
   ---- Comando 1 ----
-  Args: ["echo", "world"]
+  Args: ["echo", "hello"]
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["pwd"]
+==============================
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho $?
+0
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "$?"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "0"]
 ==============================
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
@@ -49,4 +76,5 @@ exit
 
 --- EXIT STATUS ---
 (see output capture)
-[INFO] builtin_echo (no assertion)
+--- ASSERTION ---
+ASSERT PASS: contains 'Minishell_github'

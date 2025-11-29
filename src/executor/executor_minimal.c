@@ -42,17 +42,18 @@ static void	execute_simple_builtin(t_pipeline *pipeline, t_data *data)
 		data->exit_status = 0;
 		return;
 	}
+	/* If there is more than one command, delegate to pipeline executor */
 	if (pipeline->next)
-		printf("⚠️  Pipes ainda não implementados. Executando apenas primeiro comando.\n");
+	{
+		execute_pipeline(pipeline, data);
+		return;
+	}
 	if (cmd->input_file || cmd->output_file || cmd->heredoc_delim)
 		printf("⚠️  Redirecionamentos ainda não implementados. Ignorando.\n");
 	if (is_builtin(cmd->args[0]))
 		data->exit_status = execute_builtin(cmd->args, data);
 	else
-	{
-		/* Try to execute external command (absolute path or via PATH) */
 		data->exit_status = execute_external(cmd, data);
-	}
 }
 
 /**
