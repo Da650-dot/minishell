@@ -13,32 +13,30 @@ exit 0
   Digite 'exit' ou pressione Ctrl-D para sair
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho teste > out.txt
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "teste"]
+  Output: > out.txt
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "teste"]
+  Output: > out.txt
+==============================
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat < out.txt
 teste
 
 ========== PIPELINE ==========
 
   ---- Comando 1 ----
-  Args: ["echo", "teste"]
-  Output: > out.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "teste"]
-  Output: > out.txt
-==============================
-
-⚠️  Redirecionamentos ainda não implementados. Ignorando.
-[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat < out.txt
-exit 0
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
   Args: ["cat"]
   Input:  < out.txt
 ==============================
@@ -53,9 +51,24 @@ exit 0
   Input:  < out.txt
 ==============================
 
-⚠️  Redirecionamentos ainda não implementados. Ignorando.
-[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0m
-👋 Até logo! Obrigado por usar o minishell.
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
+exit
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
 
 --- EXIT STATUS ---
 (see output capture)
+[INFO] redirections (no assertion)

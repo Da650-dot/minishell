@@ -23,25 +23,27 @@ char	*ft_append_char(char *str, char c)
 	return (new_str);
 }
 
-char	*handle_quotes(char *input, int *i, char quote_char)
+char *handle_quotes(char *input, int *i, char quote_char)
 {
-	int		start;
-	int		len;
-	char	*result;
-
-	start = *i;
-	(*i)++;
-	while (input[*i] && input[*i] != quote_char)
-		(*i)++;
-	if (input[*i] != quote_char)
-		return (print_error("syntax error", "unclosed quotes", NULL), NULL);
-	(*i)++;
-	len = *i - start;
-	result = malloc(len + 1);
-	if (!result)
-		return (NULL);
-	ft_strlcpy(result, &input[start], len + 1);
-	return (result);
+    int start = *i;  // INCLUI a aspa inicial!
+    (*i)++;
+    
+    while (input[*i] && input[*i] != quote_char)
+        (*i)++;
+    
+    if (input[*i] != quote_char)
+        return (print_error("syntax error", "unclosed quotes", NULL), NULL);
+    
+    (*i)++;  // Avança sobre a aspa final
+    
+    // Copia TUDO, incluindo as aspas
+    int len = *i - start;
+    char *result = malloc(len + 1);
+    if (!result)
+        return (NULL);
+    
+    ft_strlcpy(result, &input[start], len + 1);
+    return (result);
 }
 
 // Função 1

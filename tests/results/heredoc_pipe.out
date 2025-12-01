@@ -1,0 +1,67 @@
+==== Running: heredoc_pipe
+--- COMMANDS ---
+cat <<EOF | wc -c
+hello
+EOF
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat <<EOF | wc -c
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["cat"]
+  Heredoc: << EOF
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["wc", "-c"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["cat"]
+  Heredoc: << EOF
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["wc", "-c"]
+==============================
+
+> hello
+> EOF
+6
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
+exit
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+--- EXIT STATUS ---
+(see output capture)
+--- ASSERTION ---
+ASSERT PASS: numeric == 6

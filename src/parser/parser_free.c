@@ -19,6 +19,8 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd->input_file);
 	free(cmd->output_file);
 	free(cmd->heredoc_delim);
+	if (cmd->heredoc_fd >= 0)
+		close(cmd->heredoc_fd);
 	free(cmd);
 }
 

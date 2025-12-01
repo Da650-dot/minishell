@@ -12,7 +12,7 @@ exit 0
   Digite 'exit' ou pressione Ctrl-D para sair
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho foo | wc -c
-foo
+4
 
 ========== PIPELINE ==========
 
@@ -37,7 +37,6 @@ foo
   Args: ["wc", "-c"]
 ==============================
 
-⚠️  Pipes ainda não implementados. Executando apenas primeiro comando.
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
 
@@ -58,3 +57,5 @@ exit
 
 --- EXIT STATUS ---
 (see output capture)
+--- ASSERTION ---
+ASSERT PASS: numeric == 4

@@ -33,3 +33,4 @@ echo 'texto com /nfs/homes/jgiancol e | pipe'\necho '\''\'\'\'empty\''\nexit 0
 
 --- EXIT STATUS ---
 (see output capture)
+[INFO] single_quotes (no assertion)

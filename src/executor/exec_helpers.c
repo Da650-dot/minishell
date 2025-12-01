@@ -27,7 +27,7 @@ static int map_exec_errno(int err)
     return (127);
 }
 
-int spawn_and_exec(char *path, char **args, char **envp, t_data *data)
+int spawn_and_exec(char *path, char **args, char **envp, t_cmd *cmd, t_data *data)
 {
     pid_t pid;
     int status;
@@ -43,6 +43,12 @@ int spawn_and_exec(char *path, char **args, char **envp, t_data *data)
     {
         /* child */
         setup_signals_default();
+        /* apply redirections (if any) before exec) */
+        if (cmd)
+        {
+            if (apply_redirections(cmd) == -1)
+                _exit(1);
+        }
         execve(path, args, envp);
         /* execve returned -> error */
         if (errno == EACCES)
@@ -80,7 +86,7 @@ int execute_external(t_cmd *cmd, t_data *data)
         print_error(cmd->args[0], NULL, "command not found");
         return (127);
     }
-    exit_code = spawn_and_exec(path, cmd->args, data->envp, data);
+    exit_code = spawn_and_exec(path, cmd->args, data->envp, cmd, data);
     free(path);
     return (exit_code);
 }

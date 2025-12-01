@@ -1,0 +1,69 @@
+==== Running: pipes_three
+--- COMMANDS ---
+echo x | wc -c | cat -e
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho x | wc -c | cat -e
+2$
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "x"]
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["wc", "-c"]
+  └─> PIPE |
+
+  ---- Comando 3 ----
+  Args: ["cat", "-e"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["echo", "x"]
+  └─> PIPE |
+
+  ---- Comando 2 ----
+  Args: ["wc", "-c"]
+  └─> PIPE |
+
+  ---- Comando 3 ----
+  Args: ["cat", "-e"]
+==============================
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
+exit
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+(Expander e executor serão implementados)
+
+
+========== PIPELINE ==========
+
+  ---- Comando 1 ----
+  Args: ["exit", "0"]
+==============================
+
+--- EXIT STATUS ---
+(see output capture)
+--- ASSERTION ---
+ASSERT PASS: contains '2$'

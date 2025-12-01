@@ -1,6 +1,7 @@
 #include "minishell.h"
 
-char	*expand_variables(char *str, t_data *data)
+// MUDE O NOME desta função:
+char	*expand_variables_raw(char *str, t_data *data)  // ERA expand_variables
 {
 	char	*result;
 	char	*temp;
@@ -36,20 +37,22 @@ char	*expand_variables(char *str, t_data *data)
 	return (result);
 }
 
+
+
 char	**expand_args(char **args, t_data *data)
 {
 	char	**expanded;
 	int		i;
 	int		count;
-
+	
 	if (!args)
-		return (NULL);
+	return (NULL);
 	count = 0;
 	while (args[count])
-		count++;
+	count++;
 	expanded = malloc(sizeof(char *) * (count + 1));
 	if (!expanded)
-		return (NULL);
+	return (NULL);
 	i = 0;
 	while (i < count)
 	{
@@ -63,4 +66,54 @@ char	**expand_args(char **args, t_data *data)
 	}
 	expanded[count] = NULL;
 	return (expanded);
+}
+
+char *remove_quotes(char *str)
+{
+    char *result;
+    int i = 0;
+    int j = 0;
+    bool in_single = false;
+    bool in_double = false;
+    
+    if (!str)
+        return (NULL);
+    
+    result = malloc(ft_strlen(str) + 1);
+    if (!result)
+        return (NULL);
+    
+    while (str[i])
+    {
+        if (str[i] == '\'' && !in_double)
+        {
+            in_single = !in_single;
+            i++;
+            continue;
+        }
+        else if (str[i] == '"' && !in_single)
+        {
+            in_double = !in_double;
+            i++;
+            continue;
+        }
+        
+        result[j++] = str[i++];
+    }
+    result[j] = '\0';
+    
+    char *final = ft_strdup(result);
+    free(result);
+    return (final);
+}
+
+char *expand_variables(char *str, t_data *data)
+{
+    char *expanded;
+    char *final;
+    
+    expanded = expand_variables_raw(str, data);
+    final = remove_quotes(expanded);
+    free(expanded);
+    return (final);
 }

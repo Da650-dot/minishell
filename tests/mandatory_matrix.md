@@ -1,3 +1,30 @@
+# Matriz rápida de status — testes obrigatórios
+
+Esta tabela resume o estado dos testes ao momento da última execução automática. Os ficheiros de log estão em `tests/results/`.
+
+| Teste | Status | Nota curta | Evidência (log) |
+|---|---:|---|---|
+| Compilação (make) | PASS | binário gerado | N/A |
+| Comando absoluto (/bin/…) | FAIL | externos não executados | [simple_absolute.out](tests/results/simple_absolute.out) |
+| Execução por nome (PATH) | FAIL | não pesquisado/executado | [pwd_cd.out](tests/results/pwd_cd.out) |
+| echo (builtin) | PASS | imprime corretamente | [builtin_echo.out](tests/results/builtin_echo.out) |
+| cd | PASS | altera PWD/OLDPWD | [pwd_cd.out](tests/results/pwd_cd.out) |
+| pwd | PASS | imprime cwd | [pwd_cd.out](tests/results/pwd_cd.out) |
+| env | PASS | lista env | [env_head.out](tests/results/env_head.out) |
+| export / unset | PASS | modifica `data->envp` | [export_unset.out](tests/results/export_unset.out) |
+| exit | PASS | encerra REPL | [builtin_echo.out](tests/results/builtin_echo.out) |
+| Expansão `$VAR` | PASS | funciona para builtins | [export_unset.out](tests/results/export_unset.out) |
+| Expansão `$?` | PARTIAL | funciona; externos → 127 | [return_value.out](tests/results/return_value.out) |
+| Pipes (`|`) | PARTIAL | implementados parcialmente / testados | [pipes.out](tests/results/pipes.out), [pipes_simple.out](tests/results/pipes_simple.out), [pipes_three.out](tests/results/pipes_three.out) |
+| Redirecionamentos (`<`, `>`, `>>`) | PARTIAL | basic input/output/append implemented; heredoc pending | [redirections.out](tests/results/redirections.out) |
+| Aspas duplas (`"..."`) | FAIL | aspas preservadas nos args | [quotes.out](tests/results/quotes.out) |
+| Aspas simples (`'...'`) | FAIL | tokenização incorreta | [single_quotes.out](tests/results/single_quotes.out) |
+| Sinais (Ctrl-C / Ctrl-\ / Ctrl-D) | NT | testar manualmente | N/A |
+| Histórico (Up/Down) | NT | testar interativo (readline) | N/A |
+
+Notas:
+- "PASS/FAIL/PARTIAL/NT" reflete o estado da execução automática e testes manuais reportados; revise os logs para detalhes.
+- Alguns itens (ex.: execução via PATH) podem variar conforme `PATH` no ambiente de execução.
 # Matriz de itens obrigatórios (mandatory)
 
 Este arquivo mapeia cada item do enunciado (parte mandatory) para o estado atual no repositório e aponta para a evidência em `tests/results/`.

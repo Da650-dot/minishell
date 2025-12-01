@@ -38,7 +38,14 @@ typedef struct s_cmd
 	bool	append;
 	char	*heredoc_delim;
 	int		word_count; 
+	int		heredoc_fd;
 }	t_cmd;
+
+typedef struct s_redirect_save
+{
+    int stdin_backup;
+    int stdout_backup;
+}   t_redirect_save;
 
 typedef struct s_pipeline
 {
@@ -145,15 +152,16 @@ bool	check_write_permission(char *path);
 char	*find_executable(char *cmd, char **envp);
 
 /* ======================= EXPANSION ======================= */
-char	*expand_variables(char *str, t_data *data);
-char	**expand_args(char **args, t_data *data);
+char	*expand_variables_raw(char *str, t_data *data);
 char	*expand_variables(char *str, t_data *data);
 char	**expand_args(char **args, t_data *data);
 char	*process_dollar(char *str, int *i, t_data *data);
 char	*append_str(char *result, char *to_append);
+char	*remove_quotes(char *str);
 
 /* ======================= EXECUTOR MINIMAL ======================= */
 void	process_pipeline(t_pipeline *pipeline, t_data *data);
+void	execute_pipeline(t_pipeline *pipeline, t_data *data);
 
 /* ======================= EXECUTOR HELPERS (scaffolding) =========== */
 /* Resolve command path using PATH or return strdup(cmd) if contains '/'.
@@ -162,10 +170,16 @@ char	*resolve_command_path(char *cmd, t_data *data);
 
 /* Spawn a child and exec the given path with args and envp.
  * Returns child exit code (or 127/126 on error). */
-int	spawn_and_exec(char *path, char **args, char **envp, t_data *data);
+int	spawn_and_exec(char *path, char **args, char **envp, t_cmd *cmd, t_data *data);
 
 /* High-level entry to execute external commands (stub scaffolding).
  * Should perform lookup, fork/exec and wait, returning exit status. */
 int	execute_external(t_cmd *cmd, t_data *data);
+
+/* Redirections helpers */
+int	apply_redirections(t_cmd *cmd);
+int	save_stdio(t_redirect_save *save);
+int	restore_stdio(t_redirect_save *save);
+int	prepare_heredoc(t_cmd *cmd, t_data *data);
 
 #endif
