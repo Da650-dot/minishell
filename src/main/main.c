@@ -18,9 +18,8 @@ static void	process_input(t_data *data, char *input)
 		return ;
 	}
 	print_pipeline(pipeline);	
-
-	printf("(Expander e executor serão implementados)\n\n");
-	process_pipeline(pipeline, data);
+	expand_all_pipeline_args(pipeline, data);
+	execute_pipeline(pipeline, data);
 	free_pipeline(pipeline);
 }
 

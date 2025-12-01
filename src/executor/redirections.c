@@ -17,7 +17,8 @@
 
 int	apply_redirections(t_cmd *cmd)
 {
-    int fd;
+
+    int fd = -1; 
 
     if (!cmd)
         return (0);

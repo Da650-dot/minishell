@@ -12,7 +12,7 @@ SIGNALS_DIR = $(SRC_DIR)/signals
 UTILS_DIR = $(SRC_DIR)/utils
 BUILTINS_DIR = $(SRC_DIR)/builtins
 EXECUTOR_DIR = $(SRC_DIR)/executor
-PERMISSIONS_DIR = $(SRC_DIR)/permissions
+EXPANSION_DIR  = $(SRC_DIR)/expansion
 
 SRCS = $(MAIN_DIR)/main.c \
 	   $(MAIN_DIR)/main_cleanup.c \
@@ -42,14 +42,13 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(BUILTINS_DIR)/builtin_pwd.c \
 	   $(BUILTINS_DIR)/env_manipulation.c \
 	   $(BUILTINS_DIR)/builtin_utils.c \
-	   $(EXECUTOR_DIR)/executor_minimal.c \
- 	$(EXECUTOR_DIR)/exec_helpers.c \
- 	$(EXECUTOR_DIR)/redirections.c \
-	$(EXECUTOR_DIR)/heredoc.c \
- 	$(EXECUTOR_DIR)/pipeline.c \
-	   $(EXECUTOR_DIR)/expansion.c \
-	   $(EXECUTOR_DIR)/expansion_utils.c \
-	   $(PERMISSIONS_DIR)/permissions.c
+	   $(EXPANSION_DIR)/expansion.c \
+	   $(EXPANSION_DIR)/expansion_helpers.c \
+	   $(EXPANSION_DIR)/expansion_utils.c \
+ 	   $(EXECUTOR_DIR)/exec_helpers.c \
+ 	   $(EXECUTOR_DIR)/redirections.c \
+	   $(EXECUTOR_DIR)/heredoc.c \
+ 	   $(EXECUTOR_DIR)/pipeline.c \
 
 OBJS = $(SRCS:.c=.o)
 
