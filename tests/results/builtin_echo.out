@@ -1,0 +1,20 @@
+==== Running: builtin_echo
+--- COMMANDS ---
+echo world
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho world
+world
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+[INFO] builtin_echo (no assertion)

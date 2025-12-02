@@ -1,0 +1,20 @@
+==== Running: ls_nonexistent
+--- COMMANDS ---
+/bin/ls /nonexistent
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0m/bin/ls /nonexistent
+/bin/ls: cannot access '/nonexistent': No such file or directory
+[31m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [31m✗ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+[INFO] ls_nonexistent (no assertion)
