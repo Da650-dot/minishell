@@ -15,88 +15,98 @@
 #include <string.h>
 #include <unistd.h>
 
-static char *strip_quotes_if_needed(char *delim, bool *quoted)
+/* Função 1/5 - Processa uma linha do input */
+static int handle_heredoc_line(char *delim, bool quoted,
+                              int write_fd, t_data *data)
 {
-    size_t len;
-    char *res;
+    char *line;
 
-    *quoted = false;
-    if (!delim)
-        return (NULL);
-    len = ft_strlen(delim);
-    if (len >= 2 && ((delim[0] == '\'' && delim[len - 1] == '\'') || (delim[0] == '"' && delim[len - 1] == '"')))
+    line = readline("> ");
+    if (!line)
+        return (1);
+    if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
     {
-        *quoted = true;
-        res = ft_substr(delim, 1, len - 2);
-        return (res);
+        free(line);
+        return (1);
     }
-    return (ft_strdup(delim));
+    if (!quoted)
+        return (process_expanded_line(line, write_fd, data));
+    else
+    {
+        process_quoted_line(line, write_fd);
+        return (0);
+    }
 }
 
-int	prepare_heredoc(t_cmd *cmd, t_data *data)
+/* Função 2/5 - Loop de leitura */
+static int read_heredoc_lines(char *delim, bool quoted,
+                             int write_fd, t_data *data)
 {
-    int pipefd[2];
-    char *line;
-    char *delim;
-    bool quoted;
+    int line_result;
 
-    if (!cmd || !cmd->heredoc_delim)
-        return (0);
-    if (pipe(pipefd) == -1)
-    {
-        print_error("pipe", NULL, strerror(errno));
-        return (-1);
-    }
-    delim = strip_quotes_if_needed(cmd->heredoc_delim, &quoted);
-    setup_signals_heredoc();
     while (1)
     {
-        line = readline("> ");
-        if (!line)
-        {
-            /* EOF reached */
+        line_result = handle_heredoc_line(delim, quoted,
+                                         write_fd, data);
+        if (line_result == 1)
             break;
-        }
-        if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
-        {
-            free(line);
-            break;
-        }
-        if (!quoted)
-        {
-            char *expanded = expand_variables(line, data);
-            free(line);
-            if (!expanded)
-            {
-                free(delim);
-                close(pipefd[0]);
-                close(pipefd[1]);
-                reset_signal();
-                return (-1);
-            }
-            write(pipefd[1], expanded, ft_strlen(expanded));
-            write(pipefd[1], "\n", 1);
-            free(expanded);
-        }
-        else
-        {
-            write(pipefd[1], line, ft_strlen(line));
-            write(pipefd[1], "\n", 1);
-            free(line);
-        }
-        if (was_interrupted())
-        {
-            free(delim);
-            close(pipefd[0]);
-            close(pipefd[1]);
-            reset_signal();
-            data->exit_status = 130;
+        if (line_result == -1)
             return (-1);
-        }
+        if (was_interrupted())
+            return (2);
+    }
+    return (0);
+}
+
+/* Função 3/5 - Executa o heredoc */
+static int execute_heredoc(t_cmd *cmd, char *delim,
+                          bool quoted, t_data *data)
+{
+    int pipefd[2];
+    int read_result;
+
+    if (create_heredoc_pipe(pipefd) == -1)
+        return (-1);
+    setup_signals_heredoc();
+    read_result = read_heredoc_lines(delim, quoted,
+                                    pipefd[1], data);
+    if (read_result != 0)
+    {
+        cleanup_heredoc_resources(pipefd, delim);
+        if (read_result == 2)
+            data->exit_status = 130;
+        return (-1);
     }
     reset_signal();
     free(delim);
     close(pipefd[1]);
     cmd->heredoc_fd = pipefd[0];
+    return (0);
+}
+
+/* Função 4/5 - Verifica necessidade */
+static int should_prepare_heredoc(t_cmd *cmd)
+{
+    return (cmd && cmd->heredoc_delim);
+}
+
+/* Função 5/5 - Função principal */
+int prepare_heredoc(t_cmd *cmd, t_data *data)
+{
+    char *delim;
+    bool quoted;
+    int result;
+
+    if (!should_prepare_heredoc(cmd))
+        return (0);
+    delim = extract_delimiter(cmd->heredoc_delim, &quoted);
+    if (!delim)
+        return (-1);
+    result = execute_heredoc(cmd, delim, quoted, data);
+    if (result == -1)
+    {
+        free(delim);
+        return (-1);
+    }
     return (0);
 }

@@ -2,6 +2,7 @@
 
 static void	handle_sigint_heredoc(int signum)
 {
+	
 	(void)signum;
 	g_signal = SIGINT;
 	close(STDIN_FILENO);
@@ -10,6 +11,7 @@ static void	handle_sigint_heredoc(int signum)
 
 void	setup_signals_heredoc(void)
 {
+
 	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);

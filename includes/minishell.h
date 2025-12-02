@@ -3,6 +3,8 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+#include <sys/wait.h>
+# include <errno.h>
 # include <unistd.h>
 # include <signal.h>
 # include <readline/readline.h>
@@ -12,6 +14,22 @@
 
 # define SUCCESS 0
 # define ERROR 1
+
+typedef struct s_pipeline t_pipeline;
+typedef struct s_data t_data;
+
+
+typedef struct s_exec_ctx
+{
+	int			in_fd;
+	int			out_fd;
+	int			*pipefds;
+	int			pipefds_len;
+	t_data		*data;
+	t_pipeline	*pipeline;
+	int			n;
+}	t_exec_ctx;
+
 
 typedef enum e_token_type
 {
@@ -180,5 +198,30 @@ int	apply_redirections(t_cmd *cmd);
 int	save_stdio(t_redirect_save *save);
 int	restore_stdio(t_redirect_save *save);
 int	prepare_heredoc(t_cmd *cmd, t_data *data);
+
+/* Funções públicas do heredoc */
+int prepare_heredoc(t_cmd *cmd, t_data *data);
+
+/* Funções utilitárias (se outras partes do código precisarem) */
+char *extract_delimiter(char *delim, bool *quoted);
+int create_heredoc_pipe(int *pipefd);
+int process_expanded_line(char *line, int fd, t_data *data);
+void process_quoted_line(char *line, int fd);
+void cleanup_heredoc_resources(int *pipefd, char *delim);
+
+/* Protótipos das funções */
+int		count_cmds(t_pipeline *pl);
+void	close_fds(int *fds, int count);
+void	prepare_pipeline_heredocs(t_pipeline *pipeline, t_data *data);
+void	handle_single_command(t_pipeline *pipeline, t_data *data);
+void	execute_multi_pipeline(t_pipeline *pipeline, t_data *data, int n);
+void	execute_pipeline_main(t_pipeline *pipeline, t_data *data);
+
+/* No lugar onde você chama execute_pipeline, chame: */
+void	execute_pipeline(t_pipeline *pipeline, t_data *data);
+void	execute_multi_pipeline(t_pipeline *pipeline, t_data *data, int n);
+void	close_fds(int *fds, int len);
+void	child_exec_cmd(t_cmd *cmd, t_data *data, t_exec_ctx *ctx);
+
 
 #endif

@@ -46,7 +46,12 @@ SRCS = $(MAIN_DIR)/main.c \
  	$(EXECUTOR_DIR)/exec_helpers.c \
  	$(EXECUTOR_DIR)/redirections.c \
 	$(EXECUTOR_DIR)/heredoc.c \
+	$(EXECUTOR_DIR)/heredoc_utils.c \
  	$(EXECUTOR_DIR)/pipeline.c \
+	$(EXECUTOR_DIR)/pipeline_utils.c \
+	$(EXECUTOR_DIR)/pipeline_fork.c \
+	$(EXECUTOR_DIR)/pipeline_execute.c \
+	$(EXECUTOR_DIR)/exec_external.c \
 	   $(EXECUTOR_DIR)/expansion.c \
 	   $(EXECUTOR_DIR)/expansion_utils.c \
 	   $(PERMISSIONS_DIR)/permissions.c
