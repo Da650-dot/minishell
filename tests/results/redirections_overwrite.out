@@ -14,79 +14,11 @@ exit 0
   Digite 'exit' ou pressione Ctrl-D para sair
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho first > out_rw.txt
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "first"]
-  Output: > out_rw.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "first"]
-  Output: > out_rw.txt
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho second > out_rw.txt [A
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "second"]
-  Output: > out_rw.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "second"]
-  Output: > out_rw.txt
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat out_rw.txt
 second
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cat", "out_rw.txt"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cat", "out_rw.txt"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 --- ASSERTION ---

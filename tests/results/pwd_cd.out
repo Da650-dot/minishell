@@ -15,75 +15,11 @@ exit 0
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mpwd
 /nfs/homes/jgiancol/Projetos/M3/Minishell/GitHub_shell/Minishell_github
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["pwd"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["pwd"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcd ..
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cd", ".."]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cd", ".."]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell[0m [36m➜ [0mpwd
 /nfs/homes/jgiancol/Projetos/M3/Minishell/GitHub_shell
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["pwd"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["pwd"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 [INFO] pwd_cd (no assertion)

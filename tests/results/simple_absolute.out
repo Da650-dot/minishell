@@ -13,40 +13,8 @@ exit 0
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0m/bin/echo hello
 hello
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["/bin/echo", "hello"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["/bin/echo", "hello"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 [INFO] simple_absolute (no assertion)

@@ -15,59 +15,9 @@ exit 0
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0m/bin/ls /nonexistent 2> err.txt
 /bin/ls: cannot access '/nonexistent': No such file or directory
 /bin/ls: cannot access '2': No such file or directory
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["/bin/ls", "/nonexistent", "2"]
-  Output: > err.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["/bin/ls", "/nonexistent", "2"]
-  Output: > err.txt
-==============================
-
 [31m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [31m✗ [0mcat err.txt
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cat", "err.txt"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cat", "err.txt"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 --- ASSERTION ---

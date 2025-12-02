@@ -13,52 +13,12 @@ exit 0
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0menv | head -n 5
 SHELL=/bin/zsh
-SESSION_MANAGER=local/c3r11p5.42sp.org.br:@/tmp/.ICE-unix/2016063,unix/c3r11p5.42sp.org.br:/tmp/.ICE-unix/2016063
+SESSION_MANAGER=local/c1r10p1.42sp.org.br:@/tmp/.ICE-unix/265826,unix/c1r10p1.42sp.org.br:/tmp/.ICE-unix/265826
 USER_ZDOTDIR=/nfs/homes/jgiancol
 QT_ACCESSIBILITY=1
 COLORTERM=truecolor
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["env"]
-  └─> PIPE |
-
-  ---- Comando 2 ----
-  Args: ["head", "-n", "5"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["env"]
-  └─> PIPE |
-
-  ---- Comando 2 ----
-  Args: ["head", "-n", "5"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 [INFO] env_head (no assertion)

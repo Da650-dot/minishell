@@ -14,80 +14,12 @@ exit 0
   Digite 'exit' ou pressione Ctrl-D para sair
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho line1 > out_ap.txt
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "line1"]
-  Output: > out_ap.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "line1"]
-  Output: > out_ap.txt
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho line2 >> out_ap.txt [A
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "line2"]
-  Output: >> out_ap.txt
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "line2"]
-  Output: >> out_ap.txt
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mcat out_ap.txt
 line1
 line2
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cat", "out_ap.txt"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["cat", "out_ap.txt"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 --- ASSERTION ---

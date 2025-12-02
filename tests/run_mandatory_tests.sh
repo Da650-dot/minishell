@@ -110,6 +110,13 @@ run_test "pipes_builtin_middle" $'echo hello | pwd\necho $?\nexit 0' "SUB:Minish
 run_test "pipes_invalid_middle" $'echo hi | invalidcmd | wc -c\necho $?\nexit 0'
 run_test "pipes_invalid_middle" $'echo hi | invalidcmd | wc -c\necho $?\nexit 0' "SUB:command not found"
 
+# Pipeline exit status semantics: shell's $? should reflect last command in the pipeline
+run_test "pipeline_status_true_false" $'true | false\necho $?\nexit 0' "NUM:1"
+run_test "pipeline_status_false_true" $'false | true\necho $?\nexit 0' "NUM:0"
+
+# Nested/escaped quotes sanity check
+run_test "nested_quotes" $'echo "\'inner\'"\nexit 0' "SUB:'inner'"
+
 echo "All tests written to $OUTDIR"
 
 # Heredoc tests

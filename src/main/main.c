@@ -17,9 +17,7 @@ static void	process_input(t_data *data, char *input)
 		data->exit_status = 2;
 		return ;
 	}
-	print_pipeline(pipeline);	
-
-	printf("(Expander e executor serão implementados)\n\n");
+	print_pipeline(pipeline);
 	process_pipeline(pipeline, data);
 	free_pipeline(pipeline);
 }

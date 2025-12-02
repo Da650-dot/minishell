@@ -15,74 +15,10 @@ exit 0
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho hi | invalidcmd | wc -c
 minishell: invalidcmd: command not found
 0
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "hi"]
-  └─> PIPE |
-
-  ---- Comando 2 ----
-  Args: ["invalidcmd"]
-  └─> PIPE |
-
-  ---- Comando 3 ----
-  Args: ["wc", "-c"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "hi"]
-  └─> PIPE |
-
-  ---- Comando 2 ----
-  Args: ["invalidcmd"]
-  └─> PIPE |
-
-  ---- Comando 3 ----
-  Args: ["wc", "-c"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho $?
 0
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "$?"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", "0"]
-==============================
-
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 --- ASSERTION ---

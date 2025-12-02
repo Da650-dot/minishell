@@ -62,7 +62,6 @@ typedef struct s_data
 }	t_data;
 
 extern volatile sig_atomic_t	g_signal;
-
 /* ======================= MAIN & INIT ======================= */
 void		init_data(t_data *data, char **envp);
 void		cleanup_data(t_data *data);

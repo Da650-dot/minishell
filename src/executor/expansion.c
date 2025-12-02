@@ -16,9 +16,17 @@ char	*expand_variables(char *str, t_data *data)
 	while (str[i])
 	{
 		if (str[i] == '\'' && !in_double_quotes)
+		{
 			in_single_quotes = !in_single_quotes;
-		else if (str[i] == '\"' && !in_single_quotes)
+			i++;
+			continue;
+		}
+		else if (str[i] == '"' && !in_single_quotes)
+		{
 			in_double_quotes = !in_double_quotes;
+			i++;
+			continue;
+		}
 		if (str[i] == '$' && str[i + 1] && !in_single_quotes)
 		{
 			temp = process_dollar(str, &i, data);

@@ -13,59 +13,11 @@ exit 0
   Digite 'exit' ou pressione Ctrl-D para sair
 
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho "texto com espaço"
-"texto com espaço"
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", ""texto com espaço""]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", ""texto com espaço""]
-==============================
-
+texto com espaço
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mecho "$USER"
-"jgiancol"
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", ""$USER""]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["echo", ""jgiancol""]
-==============================
-
+jgiancol
 [32m~/Projetos/M3/Minishell/GitHub_shell/Minishell_github[0m [36m➜ [0mexit 0
 exit
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
-(Expander e executor serão implementados)
-
-
-========== PIPELINE ==========
-
-  ---- Comando 1 ----
-  Args: ["exit", "0"]
-==============================
-
 --- EXIT STATUS ---
 (see output capture)
 [INFO] quotes (no assertion)
