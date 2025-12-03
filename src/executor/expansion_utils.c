@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+//teste
 char	*get_var_name(char *str, int *i)
 {
 	int		start;
