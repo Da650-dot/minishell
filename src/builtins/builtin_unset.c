@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 16:51:04 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 16:51:05 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static bool	unset_single_var(char *arg, t_data *data)
@@ -26,5 +38,7 @@ int	builtin_unset(char **args, t_data *data)
 			has_error = true;
 		i++;
 	}
-	return (has_error ? ERROR : SUCCESS);
+	if (has_error)
+		return (ERROR);
+	return (SUCCESS);
 }

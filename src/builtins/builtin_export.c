@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 16:50:57 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 16:50:58 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	print_export_env(char **envp)
@@ -48,5 +60,7 @@ int	builtin_export(char **args, t_data *data)
 			has_error = true;
 		i++;
 	}
-	return (has_error ? ERROR : SUCCESS);
+	if (has_error)
+		return (ERROR);
+	return (SUCCESS);
 }

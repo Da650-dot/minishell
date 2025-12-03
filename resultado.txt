@@ -1,0 +1,3 @@
+ola
+cat resultado.txt
+resultado.txt

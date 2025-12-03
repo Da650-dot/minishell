@@ -1,23 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_free.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:20:19 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:20:20 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	free_cmd(t_cmd *cmd)
+static void	free_cmd_args(t_cmd *cmd)
 {
 	int	i;
 
+	if (!cmd || !cmd->args)
+		return ;
+	i = 0;
+	while (cmd->args[i])
+	{
+		free(cmd->args[i]);
+		i++;
+	}
+	free(cmd->args);
+}
+
+static void	free_cmd_redirects(t_cmd *cmd)
+{
+	t_redir	*temp;
+
+	while (cmd->redirects)
+	{
+		temp = cmd->redirects->next;
+		free(cmd->redirects->file);
+		free(cmd->redirects);
+		cmd->redirects = temp;
+	}
+}
+
+void	free_cmd(t_cmd *cmd)
+{
 	if (!cmd)
 		return ;
-	if (cmd->args)
-	{
-		i = 0;
-		while (cmd->args[i])
-		{
-			free(cmd->args[i]);
-			i++;
-		}
-		free(cmd->args);
-	}
-	free(cmd->input_file);
-	free(cmd->output_file);
+	free_cmd_args(cmd);
+	free_cmd_redirects(cmd);
 	free(cmd->heredoc_delim);
 	if (cmd->heredoc_fd >= 0)
 		close(cmd->heredoc_fd);

@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:30:47 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:30:48 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
 bool	is_operator(t_token *token)
 {
 	if (!token)
@@ -10,10 +23,10 @@ bool	is_redirect(t_token *token)
 {
 	if (!token)
 		return (false);
-	return (token->type == TOKEN_REDIR_IN ||
-			token->type == TOKEN_REDIR_OUT ||
-			token->type == TOKEN_APPEND ||
-			token->type == TOKEN_HEREDOC);
+	return (token->type == TOKEN_REDIR_IN
+		|| token->type == TOKEN_REDIR_OUT
+		|| token->type == TOKEN_APPEND
+		|| token->type == TOKEN_HEREDOC);
 }
 
 void	free_tokens(t_token *tokens)

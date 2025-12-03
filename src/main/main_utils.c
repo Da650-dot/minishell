@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:17:22 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:17:23 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 bool	is_only_spaces(char *str)
@@ -73,7 +85,6 @@ void	print_error(char *cmd, char *arg, char *msg)
 
 int	handle_args(int argc, char **argv)
 {
-
 	if (argc != 1)
 	{
 		printf("Usage: %s\n", argv[0]);

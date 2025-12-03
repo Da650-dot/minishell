@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 16:50:21 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 16:50:22 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static bool	is_only_chars(char *s, const char *chars)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (false);
-	i = 1; /* skip leading '-' */
+	i = 1;
 	if (s[0] != '-')
 		return (false);
 	while (s[i])
@@ -18,12 +30,9 @@ static bool	is_only_chars(char *s, const char *chars)
 	return (true);
 }
 
-/* parse flags -n and -e (supports combined like -ne or -en)
- * returns the index of the first non-flag argument and sets flags via pointers
- */
 static int	parse_flags(char **args, bool *newline, bool *escape)
 {
-	int i;
+	int	i;
 
 	*newline = true;
 	*escape = false;
@@ -39,36 +48,30 @@ static int	parse_flags(char **args, bool *newline, bool *escape)
 	return (i);
 }
 
-/* simple escape processing for \n, \t, \\ and \r */
 static void	print_with_escapes(const char *s)
 {
-	const char *p = s;
-
-	while (*p)
+	while (*s)
 	{
-		if (*p == '\\' && *(p + 1))
+		if (*s == '\\' && *(s + 1))
 		{
-			p++;
-			if (*p == 'n')
+			s++;
+			if (*s == 'n')
 				ft_putchar_fd('\n', STDOUT_FILENO);
-			else if (*p == 't')
+			else if (*s == 't')
 				ft_putchar_fd('\t', STDOUT_FILENO);
-			else if (*p == 'r')
+			else if (*s == 'r')
 				ft_putchar_fd('\r', STDOUT_FILENO);
-			else if (*p == '\\')
+			else if (*s == '\\')
 				ft_putchar_fd('\\', STDOUT_FILENO);
 			else
 			{
 				ft_putchar_fd('\\', STDOUT_FILENO);
-				ft_putchar_fd(*p, STDOUT_FILENO);
+				ft_putchar_fd(*s, STDOUT_FILENO);
 			}
-			p++;
 		}
 		else
-		{
-			ft_putchar_fd(*p, STDOUT_FILENO);
-			p++;
-		}
+			ft_putchar_fd(*s, STDOUT_FILENO);
+		s++;
 	}
 }
 
@@ -82,7 +85,7 @@ int	builtin_echo(char **args)
 		return (ERROR);
 	i = parse_flags(args, &newline, &escape);
 	if (i > 1)
-		newline = false; /* redundant but preserves previous logic */
+		newline = false;
 	while (args[i])
 	{
 		if (escape)

@@ -1,44 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_redirect.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:22:38 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:22:39 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	handle_redir_in(t_cmd *cmd, char *filename)
+static t_redir	*new_redir(t_token_type type, char *file)
 {
-	if (cmd->input_file)
-		free(cmd->input_file);
-	cmd->input_file = ft_strdup(filename);
+	t_redir	*redir;
+
+	redir = malloc(sizeof(t_redir));
+	if (!redir)
+		return (NULL);
+	redir->type = type;
+	redir->file = ft_strdup(file);
+	if (!redir->file)
+	{
+		free(redir);
+		return (NULL);
+	}
+	redir->next = NULL;
+	return (redir);
 }
 
-static void	handle_redir_out(t_cmd *cmd, char *filename, bool append)
+static void	add_redir(t_redir **head, t_redir *new)
 {
-	if (cmd->output_file)
-		free(cmd->output_file);
-	cmd->output_file = ft_strdup(filename);
-	cmd->append = append;
-}
+	t_redir	*current;
 
-static void	handle_heredoc(t_cmd *cmd, char *delimiter)
-{
-	if (cmd->heredoc_delim)
-		free(cmd->heredoc_delim);
-	cmd->heredoc_delim = ft_strdup(delimiter);
+	if (!*head)
+		*head = new;
+	else
+	{
+		current = *head;
+		while (current->next)
+			current = current->next;
+		current->next = new;
+	}
 }
 
 bool	handle_redirect_token(t_cmd *cmd, t_token **token)
 {
 	t_token	*redirect;
 	t_token	*filename;
+	t_redir	*new;
 
 	redirect = *token;
 	filename = redirect->next;
 	if (!filename || filename->type != TOKEN_WORD)
 		return (print_error("syntax error", "expected filename", NULL), false);
-	if (redirect->type == TOKEN_REDIR_IN)
-		handle_redir_in(cmd, filename->value);
-	else if (redirect->type == TOKEN_REDIR_OUT)
-		handle_redir_out(cmd, filename->value, false);
-	else if (redirect->type == TOKEN_APPEND)
-		handle_redir_out(cmd, filename->value, true);
-	else if (redirect->type == TOKEN_HEREDOC)
-		handle_heredoc(cmd, filename->value);
+	if (redirect->type == TOKEN_HEREDOC)
+	{
+		if (cmd->heredoc_delim)
+			free(cmd->heredoc_delim);
+		cmd->heredoc_delim = ft_strdup(filename->value);
+	}
+	else
+	{
+		new = new_redir(redirect->type, filename->value);
+		if (!new)
+			return (false);
+		add_redir(&cmd->redirects, new);
+	}
 	*token = filename->next;
 	return (true);
 }

@@ -1,86 +1,75 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline_execute.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 16:52:10 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 16:52:11 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_cmds(t_pipeline *pl)
+static int	execute_builtin_with_redirections(t_cmd *cmd, t_data *data)
 {
-    int n = 0;
-    while (pl)
-    {
-        n++;
-        pl = pl->next;
-    }
-    return (n);
+	t_redirect_save	save;
+	int				exit_status;
+
+	if (save_stdio(&save) == -1)
+	{
+		print_error("dup", NULL, "failed to backup stdio");
+		return (1);
+	}
+	if (apply_redirections(cmd) == -1)
+	{
+		restore_stdio(&save);
+		return (1);
+	}
+	exit_status = execute_builtin(cmd->args, data);
+	restore_stdio(&save);
+	return (exit_status);
 }
 
-void	close_fds(int *fds, int count)
+static bool	has_redirections(t_cmd *cmd)
 {
-    int i = 0;
-    while (i < count)
-    {
-        if (fds[i] > 2)
-            close(fds[i]);
-        i++;
-    }
-}
+	t_redir	*redir;
 
-void	prepare_pipeline_heredocs(t_pipeline *pipeline, t_data *data)
-{
-    t_pipeline *it = pipeline;
-    while (it)
-    {
-        if (it->cmd && it->cmd->heredoc_delim)
-        {
-            if (prepare_heredoc(it->cmd, data) == -1)
-            {
-                t_pipeline *c = pipeline;
-                while (c)
-                {
-                    if (c->cmd && c->cmd->heredoc_fd >= 0)
-                    {
-                        close(c->cmd->heredoc_fd);
-                        c->cmd->heredoc_fd = -1;
-                    }
-                    c = c->next;
-                }
-                return;
-            }
-        }
-        it = it->next;
-    }
+	if (!cmd)
+		return (false);
+	if (cmd->heredoc_delim)
+		return (true);
+	redir = cmd->redirects;
+	while (redir)
+	{
+		if (redir->type == TOKEN_REDIR_IN
+			|| redir->type == TOKEN_REDIR_OUT
+			|| redir->type == TOKEN_APPEND)
+			return (true);
+		redir = redir->next;
+	}
+	return (false);
 }
 
 void	handle_single_command(t_pipeline *pipeline, t_data *data)
 {
-    t_cmd *cmd = pipeline->cmd;
-    if (!cmd || !cmd->args || !cmd->args[0])
-    {
-        data->exit_status = 0;
-        return;
-    }
-    if (is_builtin(cmd->args[0]))
-    {
-        if (cmd->input_file || cmd->output_file || cmd->heredoc_delim)
-        {
-            t_redirect_save save;
-            if (save_stdio(&save) == -1)
-            {
-                print_error("dup", NULL, "failed to backup stdio");
-                data->exit_status = 1;
-                return;
-            }
-            if (apply_redirections(cmd) == -1)
-            {
-                restore_stdio(&save);
-                data->exit_status = 1;
-                return;
-            }
-            data->exit_status = execute_builtin(cmd->args, data);
-            restore_stdio(&save);
-        }
-        else
-            data->exit_status = execute_builtin(cmd->args, data);
-    }
-    else
-        data->exit_status = execute_external(cmd, data);
+	t_cmd	*cmd;
+
+	cmd = pipeline->cmd;
+	if (!cmd || !cmd->args || !cmd->args[0])
+	{
+		data->exit_status = 0;
+		return ;
+	}
+	if (is_builtin(cmd->args[0]))
+	{
+		if (has_redirections(cmd))
+			data->exit_status
+				= execute_builtin_with_redirections(cmd, data);
+		else
+			data->exit_status = execute_builtin(cmd->args, data);
+	}
+	else
+		data->exit_status = execute_external(cmd, data);
 }

@@ -1,7 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 16:50:15 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 16:50:35 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// Declarações antecipadas (você vai implementar essas funções depois)
-char	**add_env_var(char **envp, char *new_var);
+#include "minishell.h"
 
 static char	*get_target_dir(char **args, t_data *data)
 {

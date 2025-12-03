@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_debug.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:19:22 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:19:23 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-/* Debug printing disabled to avoid polluting shell output during normal runs.
- * The functions remain as no-ops so caller sites do not need to be changed.
- */
 void	print_cmd(t_cmd *cmd, int cmd_num)
 {
 	(void)cmd;
@@ -16,6 +25,5 @@ void	print_pipeline(t_pipeline *pipeline)
 
 void	test_parser(void)
 {
-	/* no-op test helper when debug is disabled */
 	(void)test_parser;
 }

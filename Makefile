@@ -12,6 +12,7 @@ SIGNALS_DIR = $(SRC_DIR)/signals
 UTILS_DIR = $(SRC_DIR)/utils
 BUILTINS_DIR = $(SRC_DIR)/builtins
 EXECUTOR_DIR = $(SRC_DIR)/executor
+EXPANSION_DIR  = $(SRC_DIR)/expansion
 PERMISSIONS_DIR = $(SRC_DIR)/permissions
 
 SRCS = $(MAIN_DIR)/main.c \
@@ -40,20 +41,25 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(BUILTINS_DIR)/builtin_export.c \
 	   $(BUILTINS_DIR)/builtin_exit.c \
 	   $(BUILTINS_DIR)/builtin_pwd.c \
+	   $(BUILTINS_DIR)/env_mani_utils.c \
 	   $(BUILTINS_DIR)/env_manipulation.c \
 	   $(BUILTINS_DIR)/builtin_utils.c \
 	   $(EXECUTOR_DIR)/executor_minimal.c \
  	$(EXECUTOR_DIR)/exec_helpers.c \
  	$(EXECUTOR_DIR)/redirections.c \
+	$(EXECUTOR_DIR)/redirections_utils.c \
 	$(EXECUTOR_DIR)/heredoc.c \
 	$(EXECUTOR_DIR)/heredoc_utils.c \
  	$(EXECUTOR_DIR)/pipeline.c \
 	$(EXECUTOR_DIR)/pipeline_utils.c \
 	$(EXECUTOR_DIR)/pipeline_fork.c \
 	$(EXECUTOR_DIR)/pipeline_execute.c \
+	$(EXECUTOR_DIR)/pipeline_exec_utils.c \
 	$(EXECUTOR_DIR)/exec_external.c \
-	   $(EXECUTOR_DIR)/expansion.c \
-	   $(EXECUTOR_DIR)/expansion_utils.c \
+	$(EXPANSION_DIR)/expansion.c \
+	   $(EXPANSION_DIR)/expansion_helpers.c \
+	   $(EXPANSION_DIR)/expansion_quotes.c \
+	   $(EXPANSION_DIR)/expansion_utils.c \
 	   $(PERMISSIONS_DIR)/permissions.c
 
 OBJS = $(SRCS:.c=.o)
@@ -77,4 +83,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+run: all
+	valgrind --suppressions=readline.sup --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell
+
+.PHONY: all clean fclean re run

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:23:13 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:23:14 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_cmd	*new_cmd(void)
@@ -8,10 +20,9 @@ t_cmd	*new_cmd(void)
 	if (!cmd)
 		return (NULL);
 	cmd->args = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->append = false;
+	cmd->redirects = NULL;
 	cmd->heredoc_delim = NULL;
+	cmd->word_count = 0;
 	cmd->heredoc_fd = -1;
 	return (cmd);
 }
@@ -53,9 +64,7 @@ int	count_words_until_pipe(t_token *tokens)
 	while (current && current->type != TOKEN_PIPE)
 	{
 		if (current->type == TOKEN_WORD)
-		{
-			count++; 
-		}
+			count++;
 		current = current->next;
 	}
 	return (count);

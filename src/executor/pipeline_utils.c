@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 16:52:20 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 16:52:21 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	setup_child_fds(t_exec_ctx *ctx)
@@ -29,20 +41,23 @@ static void	execute_child_builtin(t_cmd *cmd, t_data *data)
 	_exit(ret);
 }
 
-static void	handle_exec_error(char *cmd_name, char *path)
+static void	handle_exec_error_msg(char *cmd_name)
+{
+	print_error(cmd_name, NULL, strerror(errno));
+	_exit(127);
+}
+
+static void	handle_exec_error_permission(char *cmd_name)
+{
+	print_error(cmd_name, NULL, "Permission denied");
+	_exit(126);
+}
+
+static void	handle_exec_error(char *cmd_name)
 {
 	if (errno == EACCES)
-	{
-		print_error(cmd_name, NULL, "Permission denied");
-		free(path);
-		_exit(126);
-	}
-	else
-	{
-		print_error(cmd_name, NULL, strerror(errno));
-		free(path);
-		_exit(127);
-	}
+		handle_exec_error_permission(cmd_name);
+	handle_exec_error_msg(cmd_name);
 }
 
 static void	execute_child_external(t_cmd *cmd, t_data *data)
@@ -60,7 +75,8 @@ static void	execute_child_external(t_cmd *cmd, t_data *data)
 		_exit(127);
 	}
 	execve(path, cmd->args, data->envp);
-	handle_exec_error(cmd->args[0], path);
+	free(path);
+	handle_exec_error(cmd->args[0]);
 }
 
 void	child_exec_cmd(t_cmd *cmd, t_data *data, t_exec_ctx *ctx)

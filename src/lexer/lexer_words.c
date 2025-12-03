@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_words.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:11:49 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:11:50 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_append_char(char *str, char c)
@@ -44,7 +56,6 @@ char	*handle_quotes(char *input, int *i, char quote_char)
 	return (result);
 }
 
-// Função 1
 static char	*handle_word_char(char *input, int *i, char *word)
 {
 	char	*temp;
@@ -102,4 +113,3 @@ t_token	*process_word(char *input, int *i)
 		free(word);
 	return (new);
 }
-

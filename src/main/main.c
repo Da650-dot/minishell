@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:18:01 by dde-sou2          #+#    #+#             */
+/*   Updated: 2025/12/03 17:18:07 by dde-sou2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 volatile sig_atomic_t	g_signal = 0;
@@ -40,22 +52,22 @@ static bool	handle_user_input(t_data *data, char *input)
 	if (!input)
 	{
 		print_exit_message();
-		return (false); 
+		return (false);
 	}
 	if (was_interrupted())
 	{
 		free(input);
-		return (true);  
+		return (true);
 	}
 	if (input[0] == '\0' || is_only_spaces(input))
 	{
 		free(input);
-		return (true); 
+		return (true);
 	}
 	add_history(input);
 	process_input(data, input);
 	free(input);
-	return (true); 
+	return (true);
 }
 
 static void	repl_loop(t_data *data)
@@ -69,7 +81,6 @@ static void	repl_loop(t_data *data)
 			break ;
 	}
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {
