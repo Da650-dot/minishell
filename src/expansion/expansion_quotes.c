@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:54:29 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:55:36 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:46:27 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_quote_state(char c, bool in_double, bool *in_single, bool *skip)
+static void	update_quote_state(char c, bool in_double,
+		bool *in_single, bool *skip)
 {
 	if (c == '\'' && !in_double)
 	{

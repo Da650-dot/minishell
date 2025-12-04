@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:29:52 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:29:53 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:48:22 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static bool	validate_operator_rules(t_token *current, t_token *tokens)
 
 static bool	validate_redirect_rules(t_token *current)
 {
-	if (is_redirect(current) && (!current->next || current->next->type != TOKEN_WORD))
+	if (is_redirect(current)
+		&& (!current->next || current->next->type != TOKEN_WORD))
 	{
 		print_error("syntax error", "expected filename after redirect", NULL);
 		return (false);

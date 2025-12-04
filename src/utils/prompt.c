@@ -2,6 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/04 11:31:46 by jgiancol          #+#    #+#             */
+/*   Updated: 2025/12/04 11:49:22 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +71,8 @@ char	*build_prompt(t_data *data)
 	if (data->exit_status == 0)
 		prompt = append_to_prompt(prompt, COLOR_CYAN SYMBOL_PROMPT COLOR_RESET);
 	else
-		prompt = append_to_prompt(prompt, "\001\033[31m\002" SYMBOL_ERROR COLOR_RESET);
+		prompt = append_to_prompt(prompt,
+				"\001\033[31m\002" SYMBOL_ERROR COLOR_RESET);
 	return (prompt);
 }
 
@@ -107,4 +113,3 @@ void	print_exit_message(void)
 	printf("👋 Até logo! Obrigado por usar o minishell.\n");
 	printf("\n");
 }
-

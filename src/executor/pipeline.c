@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: copilot <copilot@example.com>               +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/29 00:00:00 by copilot           #+#    #+#             */
-/*   Updated: 2025/11/29 00:00:00 by copilot          ###   ########.fr       */
+/*   Created: 2025/12/04 11:24:53 by jgiancol          #+#    #+#             */
+/*   Updated: 2025/12/04 11:25:45 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	execute_pipeline(t_pipeline *pipeline, t_data *data)
 {
-    int n = count_cmds(pipeline);
-    if (n <= 0)
-        return;
-    prepare_pipeline_heredocs(pipeline, data);
-    if (n == 1)
-        handle_single_command(pipeline, data);
-    else
-        execute_multi_pipeline(pipeline, data, n);
+	int	n;
+
+	n = count_cmds(pipeline);
+	if (n <= 0)
+		return ;
+	prepare_pipeline_heredocs(pipeline, data);
+	if (n == 1)
+		handle_single_command(pipeline, data);
+	else
+		execute_multi_pipeline(pipeline, data, n);
 }

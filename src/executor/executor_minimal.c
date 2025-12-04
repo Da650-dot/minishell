@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_minimal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:37 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:51:38 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:24:04 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static void	execute_simple_builtin(t_pipeline *pipeline, t_data *data)
 	t_cmd	*cmd;
 
 	if (!pipeline || !pipeline->cmd)
-		return;
+		return ;
 	cmd = pipeline->cmd;
 	if (!cmd->args || !cmd->args[0])
 	{
 		data->exit_status = 0;
-		return;
+		return ;
 	}
 	execute_pipeline(pipeline, data);
 }

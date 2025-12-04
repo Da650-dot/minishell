@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:06 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:50:09 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:26:22 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,9 @@ int	apply_redirections(t_cmd *cmd)
 {
 	if (!cmd)
 		return (0);
-	
 	if (apply_file_redirections(cmd) == -1)
 		return (-1);
-		
 	if (apply_heredoc_redirection(cmd) == -1)
 		return (-1);
-
 	return (0);
 }

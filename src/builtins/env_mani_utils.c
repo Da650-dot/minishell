@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_mani_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:12 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:51:13 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:22:21 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,16 @@ char	**add_env_var(char **envp, char *new_var)
 	equals = ft_strchr(new_var, '=');
 	if (!equals)
 		return (envp);
-
 	key = ft_substr(new_var, 0, equals - new_var);
 	if (!key)
 		return (envp);
-
 	index = find_env_index(envp, key);
 	free(key);
-
 	if (index != -1)
 	{
 		free(envp[index]);
 		envp[index] = ft_strdup(new_var);
 		return (envp);
 	}
-
 	return (add_new_env_var(envp, new_var));
 }
