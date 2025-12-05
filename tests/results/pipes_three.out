@@ -1,0 +1,21 @@
+==== Running: pipes_three
+--- COMMANDS ---
+echo x | wc -c | cat -e
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mecho x | wc -c | cat -e [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ke
+2$
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+--- ASSERTION ---
+ASSERT PASS: contains '2$'

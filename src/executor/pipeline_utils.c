@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:52:20 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:52:21 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 06:31:30 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,6 @@ static void	setup_child_fds(t_exec_ctx *ctx)
 			close(ctx->pipefds[i]);
 		i++;
 	}
-}
-
-static void	execute_child_builtin(t_cmd *cmd, t_data *data)
-{
-	int	ret;
-
-	if (apply_redirections(cmd) == -1)
-		_exit(1);
-	if (!cmd->args || !cmd->args[0])
-		_exit(0);
-	ret = execute_builtin(cmd->args, data);
-	_exit(ret);
-}
-
-static void	handle_exec_error_msg(char *cmd_name)
-{
-	print_error(cmd_name, NULL, strerror(errno));
-	_exit(127);
-}
-
-static void	handle_exec_error_permission(char *cmd_name)
-{
-	print_error(cmd_name, NULL, "Permission denied");
-	_exit(126);
-}
-
-static void	handle_exec_error(char *cmd_name)
-{
-	if (errno == EACCES)
-		handle_exec_error_permission(cmd_name);
-	handle_exec_error_msg(cmd_name);
-}
-
-static void	execute_child_external(t_cmd *cmd, t_data *data)
-{
-	char	*path;
-
-	if (apply_redirections(cmd) == -1)
-		_exit(1);
-	if (!cmd->args || !cmd->args[0])
-		_exit(0);
-	path = resolve_command_path(cmd->args[0], data);
-	if (!path)
-	{
-		print_error(cmd->args[0], NULL, "command not found");
-		_exit(127);
-	}
-	execve(path, cmd->args, data->envp);
-	free(path);
-	handle_exec_error(cmd->args[0]);
 }
 
 void	child_exec_cmd(t_cmd *cmd, t_data *data, t_exec_ctx *ctx)

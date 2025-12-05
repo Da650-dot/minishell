@@ -7,6 +7,8 @@ OUTDIR="$ROOT/tests/results"
 
 mkdir -p "$OUTDIR"
 
+FAIL_COUNT=0
+
 run_test() {
   local name="$1"
   local here_doc="$2"
@@ -41,6 +43,7 @@ run_test() {
         else
           echo "ASSERT FAIL: expected numeric $exp_val, found: '${found:-<none>}'" >> "$outfile"
           echo "[FAIL] $name"
+          FAIL_COUNT=$((FAIL_COUNT+1))
         fi
         ;;
       SUB:*)
@@ -51,6 +54,7 @@ run_test() {
         else
           echo "ASSERT FAIL: missing '$exp_sub'" >> "$outfile"
           echo "[FAIL] $name"
+          FAIL_COUNT=$((FAIL_COUNT+1))
         fi
         ;;
       PAT:*)
@@ -61,6 +65,7 @@ run_test() {
         else
           echo "ASSERT FAIL: pattern '$exp_pat' not matched" >> "$outfile"
           echo "[FAIL] $name"
+          FAIL_COUNT=$((FAIL_COUNT+1))
         fi
         ;;
       *)
@@ -143,3 +148,8 @@ EOF
 exit 0" "NUM:6"
 
 echo "Heredoc tests written to $OUTDIR"
+
+if [ "$FAIL_COUNT" -ne 0 ]; then
+  echo "\nFAILED: $FAIL_COUNT test(s) failed." >&2
+  exit 1
+fi

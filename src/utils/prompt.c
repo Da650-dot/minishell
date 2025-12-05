@@ -6,7 +6,7 @@
 /*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:31:46 by jgiancol          #+#    #+#             */
-/*   Updated: 2025/12/04 11:49:22 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/05 06:58:18 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,35 +81,4 @@ char	*build_simple_prompt(void)
 	return (ft_strdup("minishell> "));
 }
 
-void	print_welcome_banner(void)
-{
-	printf("\n");
-	printf("╔══════════════════════════════════════════════════╗\n");
-	printf("║             🐚  MINISHELL  🐚                    ║\n");
-	printf("║          Bem-vindo ao seu shell!                ║\n");
-	printf("╚══════════════════════════════════════════════════╝\n");
-	printf("\n");
-	printf("  Digite 'exit' ou pressione Ctrl-D para sair\n");
-	printf("\n");
-}
-
-void	print_simple_banner(void)
-{
-	printf("\n");
-	printf("==================================================\n");
-	printf("               MINISHELL v1.0                     \n");
-	printf("==================================================\n");
-	printf("\n");
-}
-
-void	clear_screen(void)
-{
-	printf("\033[H\033[J");
-}
-
-void	print_exit_message(void)
-{
-	printf("\n");
-	printf("👋 Até logo! Obrigado por usar o minishell.\n");
-	printf("\n");
-}
+/* Banner and screen functions moved to prompt_banner.c to satisfy Norminette */

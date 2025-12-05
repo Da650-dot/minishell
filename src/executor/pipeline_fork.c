@@ -3,36 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_fork.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:52:17 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:52:18 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 06:54:51 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	create_pipes(int **pipefds, int n)
-{
-	int	i;
-	int	pipefds_len;
-
-	pipefds_len = 2 * (n - 1);
-	*pipefds = malloc(sizeof(int) * pipefds_len);
-	if (!*pipefds)
-		return (0);
-	i = 0;
-	while (i < n - 1)
-	{
-		if (pipe(*pipefds + i * 2) == -1)
-		{
-			free(*pipefds);
-			return (0);
-		}
-		i++;
-	}
-	return (pipefds_len);
-}
+/* create_pipes moved to pipeline_fork_helpers.c */
 
 static void	get_pipe_fds(int i, t_exec_ctx *ctx)
 {
@@ -87,27 +67,7 @@ static int	fork_pipeline(t_exec_ctx *ctx, pid_t **pids)
 	return (1);
 }
 
-static int	wait_all(pid_t *pids, int n)
-{
-	int	i;
-	int	status;
-	int	last_status;
-
-	i = 0;
-	last_status = 0;
-	while (i < n)
-	{
-		if (waitpid(pids[i], &status, 0) != -1)
-		{
-			if (WIFEXITED(status))
-				last_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				last_status = 128 + WTERMSIG(status);
-		}
-		i++;
-	}
-	return (last_status);
-}
+/* wait_all moved to pipeline_fork_helpers.c */
 
 void	execute_multi_pipeline(t_pipeline *pipeline, t_data *data, int n)
 {

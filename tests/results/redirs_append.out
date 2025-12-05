@@ -1,0 +1,26 @@
+==== Running: redirs_append
+--- COMMANDS ---
+echo a > out_append.txt
+echo b >> out_append.txt
+cat out_append.txt
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mecho a > out_append.txt [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kt
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mecho b >> out_append.txt
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mcat out_append.txt
+a
+b
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+--- ASSERTION ---
+ASSERT PASS: contains 'b'

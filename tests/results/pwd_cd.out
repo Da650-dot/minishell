@@ -1,0 +1,25 @@
+==== Running: pwd_cd
+--- COMMANDS ---
+pwd
+cd ..
+pwd
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mpwd
+/nfs/homes/jgiancol/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mcd ..
+[32m~/Projetos/M3/Minishell/GitHub_shell[0m [36m➜ [0mpwd
+/nfs/homes/jgiancol/Projetos/M3/Minishell/GitHub_shell
+[32m~/Projetos/M3/Minishell/GitHub_shell[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+[INFO] pwd_cd (no assertion)

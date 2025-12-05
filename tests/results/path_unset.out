@@ -1,0 +1,25 @@
+==== Running: path_unset
+--- COMMANDS ---
+unset PATH
+ls
+echo $?
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0munset PATH
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mls
+minishell: ls: command not found
+[31m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [31m✗ [0mecho $?
+127
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+[INFO] path_unset (no assertion)

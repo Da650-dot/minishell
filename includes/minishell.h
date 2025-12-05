@@ -6,7 +6,7 @@
 /*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/04 12:05:33 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/05 06:57:41 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,6 @@ void							process_quoted_line(char *line, int fd);
 void							cleanup_heredoc_resources(int *pipefd,
 									char *delim);
 
-/* Protótipos das funções */
 int								count_cmds(t_pipeline *pl);
 void							close_fds(int *fds, int count);
 void							prepare_pipeline_heredocs(t_pipeline *pipeline,
@@ -237,7 +236,6 @@ void							execute_multi_pipeline(t_pipeline *pipeline,
 void							execute_pipeline_main(t_pipeline *pipeline,
 									t_data *data);
 
-/* No lugar onde você chama execute_pipeline, chame: */
 void							execute_pipeline(t_pipeline *pipeline,
 									t_data *data);
 void							execute_multi_pipeline(t_pipeline *pipeline,
@@ -246,4 +244,11 @@ void							close_fds(int *fds, int len);
 void							child_exec_cmd(t_cmd *cmd, t_data *data,
 									t_exec_ctx *ctx);
 
+void							execute_child_builtin(t_cmd *cmd, t_data *data);
+void							execute_child_external(t_cmd *cmd,
+									t_data *data);
+void							handle_exec_error(char *cmd_name);
+
+int								create_pipes(int **pipefds, int n);
+int								wait_all(pid_t *pids, int n);
 #endif

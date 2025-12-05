@@ -1,0 +1,23 @@
+==== Running: redirs_input
+--- COMMANDS ---
+echo abc > in_red.txt
+wc -c < in_red.txt
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mecho abc > in_red.txt
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mwc -c < in_red.txt
+4
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+--- ASSERTION ---
+ASSERT PASS: numeric == 4

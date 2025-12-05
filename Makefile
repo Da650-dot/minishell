@@ -55,12 +55,15 @@ SRCS = $(MAIN_DIR)/main.c \
 	$(EXECUTOR_DIR)/pipeline_fork.c \
 	$(EXECUTOR_DIR)/pipeline_execute.c \
 	$(EXECUTOR_DIR)/pipeline_exec_utils.c \
+	$(EXECUTOR_DIR)/pipeline_fork_helpers.c \
+	$(EXECUTOR_DIR)/pipeline_exec_helpers.c \
 	$(EXECUTOR_DIR)/exec_external.c \
 	$(EXPANSION_DIR)/expansion.c \
 	   $(EXPANSION_DIR)/expansion_helpers.c \
 	   $(EXPANSION_DIR)/expansion_quotes.c \
-	   $(EXPANSION_DIR)/expansion_utils.c \
-	   $(PERMISSIONS_DIR)/permissions.c
+		 $(EXPANSION_DIR)/expansion_utils.c \
+		 $(PERMISSIONS_DIR)/permissions.c \
+		 $(UTILS_DIR)/prompt_banner.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -86,4 +89,8 @@ re: fclean all
 run: all
 	valgrind --suppressions=readline.sup --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell
 
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re run check
+
+check: all
+	@echo "Running mandatory tests..."
+	@./tests/run_mandatory_tests.sh || (echo "Mandatory tests failed"; exit 1)
