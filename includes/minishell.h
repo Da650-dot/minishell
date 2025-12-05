@@ -6,7 +6,7 @@
 /*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 06:57:41 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/05 07:12:16 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void							execute_pipeline(t_pipeline *pipeline,
 /* ======================= EXECUTOR HELPERS (scaffolding) =========== */
 char							*resolve_command_path(char *cmd, t_data *data);
 int								spawn_and_exec(char *path, char **args,
-									char **envp, t_cmd *cmd, t_data *data);
+									char **envp, t_cmd *cmd);
 int								execute_external(t_cmd *cmd, t_data *data);
 
 /* Redirections helpers */

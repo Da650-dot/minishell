@@ -1,13 +1,0 @@
-
-╔══════════════════════════════════════════════════╗
-║             🐚  MINISHELL  🐚                    ║
-║          Bem-vindo ao seu shell!                ║
-╚══════════════════════════════════════════════════╝
-
-  Digite 'exit' ou pressione Ctrl-D para sair
-
-[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mecho hello > /tmp/minishell_test_1
-[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mcat /tmp/minishell_test_1 [A
-hello
-[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexit
-exit

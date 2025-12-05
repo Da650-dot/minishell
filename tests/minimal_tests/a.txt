@@ -1,1 +1,0 @@
-DEBUG: Redirect type=3 file=b.txt

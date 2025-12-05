@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:51:34 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 07:09:14 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ static int	handle_parent_process(pid_t pid)
 	return (1);
 }
 
-int	spawn_and_exec(char *path, char **args, char **envp,
-		t_cmd *cmd, t_data *data)
+int	spawn_and_exec(char *path, char **args, char **envp, t_cmd *cmd)
 {
 	pid_t	pid;
 
-	(void)data;
 	pid = fork();
 	if (pid == -1)
 	{

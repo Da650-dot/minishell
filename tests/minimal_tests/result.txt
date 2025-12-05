@@ -1,1 +1,0 @@
-DEBUG: Redirect type=2 file=file.txt
