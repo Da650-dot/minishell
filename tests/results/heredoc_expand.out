@@ -1,0 +1,27 @@
+==== Running: heredoc_expand
+--- COMMANDS ---
+export X=world
+cat <<EOF
+a $X
+EOF
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexport X=world
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mcat <<EOF
+> a $X
+> EOF
+a world
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+--- ASSERTION ---
+ASSERT PASS: contains 'world'

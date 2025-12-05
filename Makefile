@@ -30,6 +30,7 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(PARSER_DIR)/parser_debug.c \
 	   $(SIGNALS_DIR)/signals.c \
 	   $(SIGNALS_DIR)/signals_heredoc.c \
+	$(SIGNALS_DIR)/globals.c \
 	   $(UTILS_DIR)/env_utils.c \
 	   $(UTILS_DIR)/prompt.c \
 	   $(UTILS_DIR)/token_utils.c \

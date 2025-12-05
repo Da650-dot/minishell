@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:18:01 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:18:07 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 07:18:50 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-volatile sig_atomic_t	g_signal = 0;
 
 static void	process_input(t_data *data, char *input)
 {

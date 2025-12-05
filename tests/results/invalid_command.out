@@ -1,0 +1,20 @@
+==== Running: invalid_command
+--- COMMANDS ---
+invalidcmd
+exit 0
+--- OUTPUT ---
+
+╔══════════════════════════════════════════════════╗
+║             🐚  MINISHELL  🐚                    ║
+║          Bem-vindo ao seu shell!                ║
+╚══════════════════════════════════════════════════╝
+
+  Digite 'exit' ou pressione Ctrl-D para sair
+
+[32m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [36m➜ [0minvalidcmd
+minishell: invalidcmd: command not found
+[31m~/Projetos/M3/Minishell/GitHub_shell/minishell_5_dez[0m [31m✗ [0mexit 0
+exit
+--- EXIT STATUS ---
+(see output capture)
+[INFO] invalid_command (no assertion)

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:26:58 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:27:16 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 07:23:02 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-volatile sig_atomic_t	g_heredoc_interrupted = 0;
 
 static void	handle_sigint_heredoc(int signum)
 {
@@ -39,9 +37,9 @@ void	setup_signals_heredoc(void)
 
 bool	was_interrupted(void)
 {
-	if (g_heredoc_interrupted)
+	if (g_signal == SIGINT)
 	{
-		g_heredoc_interrupted = 0;
+		g_signal = 0;
 		return (true);
 	}
 	return (false);
@@ -49,5 +47,5 @@ bool	was_interrupted(void)
 
 void	reset_heredoc_signal(void)
 {
-	g_heredoc_interrupted = 0;
+	g_signal = 0;
 }
