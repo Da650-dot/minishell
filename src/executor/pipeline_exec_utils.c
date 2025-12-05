@@ -76,7 +76,7 @@ static int	process_cmd_heredocs(t_cmd *cmd, t_data *data)
 	return (0);
 }
 
-void	prepare_pipeline_heredocs(t_pipeline *pipeline, t_data *data)
+int	prepare_pipeline_heredocs(t_pipeline *pipeline, t_data *data)
 {
 	t_pipeline	*it;
 
@@ -86,8 +86,9 @@ void	prepare_pipeline_heredocs(t_pipeline *pipeline, t_data *data)
 		if (it->cmd && process_cmd_heredocs(it->cmd, data) == -1)
 		{
 			cleanup_pipeline_heredocs(pipeline);
-			return ;
+			return (-1);
 		}
 		it = it->next;
 	}
+	return (0);
 }

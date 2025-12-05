@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 07:12:16 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:02:51 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ void							cleanup_heredoc_resources(int *pipefd,
 
 int								count_cmds(t_pipeline *pl);
 void							close_fds(int *fds, int count);
-void							prepare_pipeline_heredocs(t_pipeline *pipeline,
+int								prepare_pipeline_heredocs(t_pipeline *pipeline,
 									t_data *data);
 void							handle_single_command(t_pipeline *pipeline,
 									t_data *data);

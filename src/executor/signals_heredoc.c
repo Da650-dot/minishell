@@ -6,18 +6,23 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:26:58 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 17:53:44 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:49:51 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+
+volatile sig_atomic_t	g_heredoc_interrupted = 0;
+static int				g_stdin_backup = -1;
 
 static void	handle_sigint_heredoc(int signum)
 {
 	(void)signum;
-	g_signal = SIGINT;
+	g_heredoc_interrupted = 1;
 	write(STDOUT_FILENO, "\n", 1);
-	_exit(130);
+	rl_done = 1;
+	/* Close stdin to force readline to return with EOF */
+	if (on_heredoc(-1))
+		close(STDIN_FILENO);
 }
 
 void	setup_signals_heredoc(void)
@@ -25,6 +30,8 @@ void	setup_signals_heredoc(void)
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
+	/* Save stdin before entering heredoc (will be closed on SIGINT) */
+	g_stdin_backup = dup(STDIN_FILENO);
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_handler = handle_sigint_heredoc;
 	sa_int.sa_flags = 0;
@@ -37,9 +44,9 @@ void	setup_signals_heredoc(void)
 
 bool	was_interrupted(void)
 {
-	if (g_signal == SIGINT)
+	if (g_heredoc_interrupted)
 	{
-		g_signal = 0;
+		g_heredoc_interrupted = 0;
 		return (true);
 	}
 	return (false);
@@ -47,5 +54,13 @@ bool	was_interrupted(void)
 
 void	reset_heredoc_signal(void)
 {
-	g_signal = 0;
+	g_heredoc_interrupted = 0;
+	/* Restore stdin if it was saved */
+	if (g_stdin_backup >= 0)
+	{
+		dup2(g_stdin_backup, STDIN_FILENO);
+		close(g_stdin_backup);
+		g_stdin_backup = -1;
+	}
 }
+

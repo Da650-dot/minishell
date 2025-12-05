@@ -46,8 +46,6 @@ static int	read_heredoc_lines(char *delim, bool quoted,
 			break ;
 		if (line_result == -1)
 			return (-1);
-		if (was_interrupted())
-			return (2);
 	}
 	return (0);
 }
@@ -56,24 +54,36 @@ static int	read_heredoc_lines(char *delim, bool quoted,
 static int	execute_heredoc(t_cmd *cmd, char *delim,
 			bool quoted, t_data *data)
 {
-	int	pipefd[2];
-	int	read_result;
+	int		pipefd[2];
+	pid_t	pid;
+	int		status;
 
 	if (create_heredoc_pipe(pipefd) == -1)
-		return (-1);
-	setup_signals_heredoc();
-	read_result = read_heredoc_lines(delim, quoted,
-			pipefd[1], data);
-	if (read_result != 0)
+		return (free(delim), -1);
+	pid = fork();
+	if (pid == -1)
 	{
-		cleanup_heredoc_resources(pipefd, delim);
-		if (read_result == 2)
-			data->exit_status = 130;
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return (free(delim), -1);
+	}
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		setup_signals_heredoc();
+		if (read_heredoc_lines(delim, quoted, pipefd[1], data) != 0)
+			_exit(130);
+		_exit(0);
+	}
+	close(pipefd[1]);
+	waitpid(pid, &status, 0);
+	free(delim);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	{
+		close(pipefd[0]);
+		data->exit_status = 130;
 		return (-1);
 	}
-	reset_signal();
-	free(delim);
-	close(pipefd[1]);
 	cmd->heredoc_fd = pipefd[0];
 	return (0);
 }
@@ -89,18 +99,11 @@ int	prepare_heredoc(t_cmd *cmd, t_data *data)
 {
 	char	*delim;
 	bool	quoted;
-	int		result;
 
 	if (!should_prepare_heredoc(cmd))
 		return (0);
 	delim = extract_delimiter(cmd->heredoc_delim, &quoted);
 	if (!delim)
 		return (-1);
-	result = execute_heredoc(cmd, delim, quoted, data);
-	if (result == -1)
-	{
-		free(delim);
-		return (-1);
-	}
-	return (0);
+	return (execute_heredoc(cmd, delim, quoted, data));
 }

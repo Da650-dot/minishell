@@ -6,13 +6,15 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:27:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:27:40 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:49:39 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
 
-static void	handle_sigint_interactive(int signum)
+/* Unified SIGINT handler that adapts to context */
+void	handle_sigint(int signum)
 {
 	(void)signum;
 	g_signal = SIGINT;
@@ -27,7 +29,7 @@ void	setup_signals_interactive(void)
 	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = handle_sigint_interactive;
+	sa.sa_handler = handle_sigint;
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
 	sigemptyset(&sa.sa_mask);

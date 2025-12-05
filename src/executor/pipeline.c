@@ -19,7 +19,12 @@ void	execute_pipeline(t_pipeline *pipeline, t_data *data)
 	n = count_cmds(pipeline);
 	if (n <= 0)
 		return ;
-	prepare_pipeline_heredocs(pipeline, data);
+	if (prepare_pipeline_heredocs(pipeline, data) == -1)
+	{
+		g_signal = 0;
+		setup_signals_interactive();
+		return ;
+	}
 	if (n == 1)
 		handle_single_command(pipeline, data);
 	else
