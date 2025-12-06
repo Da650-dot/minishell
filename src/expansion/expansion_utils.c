@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:04:27 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:04:28 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:59:55 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,16 @@ char	*process_dollar(char *str, int *i, t_data *data)
 		return (ft_itoa(data->exit_status));
 	}
 	var_value = get_env(var_name, data->envp);
-	free(var_name);
 	if (!var_value)
-		return (ft_strdup(""));
+	{
+		if (ft_strncmp(var_name, "$", 2) == 0 && var_name[1] == '\0')
+			result = ft_strdup("$");
+		else
+			result = ft_strdup("");
+		free(var_name);
+		return (result);
+	}
 	result = ft_strdup(var_value);
+	free(var_name);
 	return (result);
 }
