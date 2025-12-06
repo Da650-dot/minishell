@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:31:46 by jgiancol          #+#    #+#             */
-/*   Updated: 2025/12/06 14:14:23 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 18:58:06 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static char	*get_current_dir(char **envp)
 		return (ft_strdup("?"));
 	home = get_env("HOME", envp);
 	if (!home)
-		return (cwd);
+	{
+		free(cwd);
+		return (ft_strdup(""));
+	}
 	home_len = ft_strlen(home);
 	if (ft_strncmp(cwd, home, home_len) == 0)
 	{
@@ -56,6 +59,8 @@ char	*build_prompt(t_data *data)
 	cwd = get_current_dir(data->envp);
 	prompt = ft_strdup(cwd);
 	free(cwd);
+	if (prompt[0] == '\0')
+		return (prompt);
 	prompt = append_to_prompt(prompt, "$ ");
 	return (prompt);
 }
