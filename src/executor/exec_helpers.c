@@ -48,7 +48,11 @@ static int	handle_parent_process(pid_t pid)
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		return (128 + WTERMSIG(status));
+	}
 	return (1);
 }
 

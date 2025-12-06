@@ -14,13 +14,23 @@
 
 static void	print_export_env(char **envp)
 {
-	int	i;
+	int		i;
+	char	*equals;
 
 	i = 0;
 	while (envp[i])
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(envp[i], STDOUT_FILENO);
+		equals = ft_strchr(envp[i], '=');
+		if (equals)
+		{
+			write(STDOUT_FILENO, envp[i], equals - envp[i] + 1);
+			ft_putchar_fd('"', STDOUT_FILENO);
+			ft_putstr_fd(equals + 1, STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
+		}
+		else
+			ft_putstr_fd(envp[i], STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}

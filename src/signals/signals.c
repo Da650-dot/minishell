@@ -6,18 +6,15 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:27:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 16:49:39 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:55:10 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-/* Unified SIGINT handler that adapts to context */
 void	handle_sigint(int signum)
 {
 	(void)signum;
-	g_signal = SIGINT;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

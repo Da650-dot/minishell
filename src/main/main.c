@@ -37,11 +37,11 @@ static char	*get_user_input(t_data *data)
 	char	*input;
 	char	*prompt;
 
-	reset_signal();
 	setup_signals_interactive();
 	prompt = build_prompt(data);
 	input = readline(prompt);
 	free(prompt);
+	reset_signal();
 	return (input);
 }
 

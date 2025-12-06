@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 18:02:51 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:51:31 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,10 @@ int								restore_stdio(t_redirect_save *save);
 int								prepare_heredoc(t_cmd *cmd, t_data *data);
 
 /* Funções públicas do heredoc */
-int								prepare_heredoc(t_cmd *cmd, t_data *data);
+int								handle_heredoc_line(char *delim, bool quoted,
+									int write_fd, t_data *data);
+int								read_heredoc_lines(char *delim, bool quoted,
+									int write_fd, t_data *data);
 
 /* Funções utilitárias (se outras partes do código precisarem) */
 char							*extract_delimiter(char *delim, bool *quoted);

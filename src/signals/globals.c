@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 07:30:00 by jgiancol          #+#    #+#             */
-/*   Updated: 2025/12/05 16:50:00 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:55:20 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 volatile sig_atomic_t	g_signal = 0;
 
-/* State tracking: -1 to read, 1 to set, 0 to unset */
 int	on_heredoc(int set)
 {
 	static int	heredoc_flag = 0;
