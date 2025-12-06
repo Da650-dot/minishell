@@ -187,6 +187,8 @@ char							*process_dollar(char *str, int *i,
 									t_data *data);
 char							*append_str(char *result, char *to_append);
 char							*remove_quotes(char *str);
+char							*expand_redir_filename(char *filename,
+									t_data *data);
 
 /* ======================= EXECUTOR MINIMAL ======================= */
 void							process_pipeline(t_pipeline *pipeline,
