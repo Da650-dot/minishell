@@ -6,7 +6,7 @@
 /*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:04:27 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 17:59:55 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:14:08 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,25 @@ char	*append_str(char *result, char *to_append)
 	return (temp);
 }
 
+static char	*get_var_value(char *var_name, t_data *data)
+{
+	char	*var_value;
+
+	if (ft_strncmp(var_name, "?", 2) == 0 && var_name[1] == '\0')
+		return (ft_itoa(data->exit_status));
+	var_value = get_env(var_name, data->envp);
+	if (!var_value)
+	{
+		if (ft_strncmp(var_name, "$", 2) == 0 && var_name[1] == '\0')
+			return (ft_strdup("$"));
+		return (ft_strdup(""));
+	}
+	return (ft_strdup(var_value));
+}
+
 char	*process_dollar(char *str, int *i, t_data *data)
 {
 	char	*var_name;
-	char	*var_value;
 	char	*result;
 
 	(*i)++;
@@ -59,22 +74,7 @@ char	*process_dollar(char *str, int *i, t_data *data)
 	var_name = get_var_name(str, i);
 	if (!var_name)
 		return (NULL);
-	if (ft_strncmp(var_name, "?", 2) == 0 && var_name[1] == '\0')
-	{
-		free(var_name);
-		return (ft_itoa(data->exit_status));
-	}
-	var_value = get_env(var_name, data->envp);
-	if (!var_value)
-	{
-		if (ft_strncmp(var_name, "$", 2) == 0 && var_name[1] == '\0')
-			result = ft_strdup("$");
-		else
-			result = ft_strdup("");
-		free(var_name);
-		return (result);
-	}
-	result = ft_strdup(var_value);
+	result = get_var_value(var_name, data);
 	free(var_name);
 	return (result);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_exe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:42:47 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 14:50:21 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:01:32 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	fork_heredoc_child(int *pipefd, char *delim,
-			bool quoted, t_data *data)
+static int	fork_heredoc_child(int *pipefd, char *delim, bool quoted,
+		t_data *data)
 {
 	pid_t	pid;
 
@@ -38,8 +38,7 @@ static int	fork_heredoc_child(int *pipefd, char *delim,
 	return (pid);
 }
 
-static int	execute_heredoc(t_cmd *cmd, char *delim,
-			bool quoted, t_data *data)
+static int	execute_heredoc(t_cmd *cmd, char *delim, bool quoted, t_data *data)
 {
 	int		pipefd[2];
 	pid_t	pid;

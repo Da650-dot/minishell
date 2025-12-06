@@ -65,6 +65,7 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(EXPANSION_DIR)/expansion_helpers.c \
 	   $(EXPANSION_DIR)/expansion_quotes.c \
 		 $(EXPANSION_DIR)/expansion_utils.c \
+		 $(EXPANSION_DIR)/expansion_redir.c \
 		 $(PERMISSIONS_DIR)/permissions.c
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

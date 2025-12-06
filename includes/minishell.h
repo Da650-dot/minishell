@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 17:23:52 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:21:45 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,15 @@ typedef struct s_redirect_save
 	int							stdin_backup;
 	int							stdout_backup;
 }								t_redirect_save;
+
+typedef struct s_exec_args
+{
+	char						*path;
+	char						**args;
+	char						**envp;
+	t_cmd						*cmd;
+	t_data						*data;
+}								t_exec_args;
 
 typedef struct s_pipeline
 {
@@ -196,25 +205,24 @@ void							process_pipeline(t_pipeline *pipeline,
 void							execute_pipeline(t_pipeline *pipeline,
 									t_data *data);
 
-/* ======================= EXECUTOR HELPERS (scaffolding) =========== */
+/* ======================= EXECUTOR HELPERS ======================= */
 char							*resolve_command_path(char *cmd, t_data *data);
-int								spawn_and_exec(char *path, char **args,
-									char **envp, t_cmd *cmd, t_data *data);
+int								spawn_and_exec(t_exec_args *args);
 int								execute_external(t_cmd *cmd, t_data *data);
 
-/* Redirections helpers */
+/* ======================= REDIRECTION HELPERS ==================== */
 int								apply_redirections(t_cmd *cmd, t_data *data);
 int								save_stdio(t_redirect_save *save);
 int								restore_stdio(t_redirect_save *save);
 int								prepare_heredoc(t_cmd *cmd, t_data *data);
 
-/* Funções públicas do heredoc */
+/* ======================= HEREDOC HANDLER  ==================== */
 int								handle_heredoc_line(char *delim, bool quoted,
 									int write_fd, t_data *data);
 int								read_heredoc_lines(char *delim, bool quoted,
 									int write_fd, t_data *data);
 
-/* Funções utilitárias */
+/* ======================= HEREDOC UTILITIES ==================== */
 char							*extract_delimiter(char *delim, bool *quoted);
 int								create_heredoc_pipe(int *pipefd);
 int								process_expanded_line(char *line, int fd,
@@ -233,7 +241,6 @@ void							execute_multi_pipeline(t_pipeline *pipeline,
 									t_data *data, int n);
 void							execute_pipeline_main(t_pipeline *pipeline,
 									t_data *data);
-
 void							execute_pipeline(t_pipeline *pipeline,
 									t_data *data);
 void							execute_multi_pipeline(t_pipeline *pipeline,
@@ -241,12 +248,10 @@ void							execute_multi_pipeline(t_pipeline *pipeline,
 void							close_fds(int *fds, int len);
 void							child_exec_cmd(t_cmd *cmd, t_data *data,
 									t_exec_ctx *ctx);
-
 void							execute_child_builtin(t_cmd *cmd, t_data *data);
 void							execute_child_external(t_cmd *cmd,
 									t_data *data);
 void							handle_exec_error(char *cmd_name);
-
 int								create_pipes(int **pipefds, int n);
 int								wait_all(pid_t *pids, int n);
 #endif

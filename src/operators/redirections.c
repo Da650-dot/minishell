@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:06 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 17:15:37 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:01:58 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static int	apply_single_redir_in(char *file, char *original_file)
 	return (0);
 }
 
-static int	apply_single_redir_out(char *file, bool append,
-								char *original_file)
+static int	apply_single_redir_out(char *file, bool append, char *original_file)
 {
 	int	fd;
 	int	flags;
@@ -90,7 +89,8 @@ static int	apply_file_redirections(t_cmd *cmd, t_data *data)
 		if (current->type == TOKEN_REDIR_IN)
 			result = apply_single_redir_in(expanded_file, current->file);
 		else if (current->type == TOKEN_REDIR_OUT)
-			result = apply_single_redir_out(expanded_file, false, current->file);
+			result = apply_single_redir_out(expanded_file, false,
+					current->file);
 		else if (current->type == TOKEN_APPEND)
 			result = apply_single_redir_out(expanded_file, true, current->file);
 		else

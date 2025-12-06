@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
+/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 17:15:37 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:16:46 by jgiancol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,16 @@ static int	map_exec_errno(int err)
 	return (127);
 }
 
-static int	execute_child_process(char *path, char **args,
-			char **envp, t_cmd *cmd, t_data *data)
+static int	execute_child_process(t_exec_args *args)
 {
 	setup_signals_default();
-	if (cmd && apply_redirections(cmd, data) == -1)
+	if (args->cmd && apply_redirections(args->cmd, args->data) == -1)
 		_exit(1);
-	execve(path, args, envp);
+	execve(args->path, args->args, args->envp);
 	if (errno == EACCES)
-		print_error(args[0], NULL, "Permission denied");
+		print_error(args->args[0], NULL, "Permission denied");
 	else
-		print_error(args[0], NULL, strerror(errno));
+		print_error(args->args[0], NULL, strerror(errno));
 	_exit(map_exec_errno(errno));
 }
 
@@ -56,8 +55,7 @@ static int	handle_parent_process(pid_t pid)
 	return (1);
 }
 
-int	spawn_and_exec(char *path, char **args, char **envp, t_cmd *cmd,
-		t_data *data)
+static int	do_spawn_and_exec(t_exec_args *exec_args)
 {
 	pid_t	pid;
 
@@ -68,6 +66,11 @@ int	spawn_and_exec(char *path, char **args, char **envp, t_cmd *cmd,
 		return (1);
 	}
 	if (pid == 0)
-		execute_child_process(path, args, envp, cmd, data);
+		execute_child_process(exec_args);
 	return (handle_parent_process(pid));
+}
+
+int	spawn_and_exec(t_exec_args *args)
+{
+	return (do_spawn_and_exec(args));
 }
