@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:06 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/04 11:26:22 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:15:37 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	apply_single_redir_in(char *file)
+static int	apply_single_redir_in(char *file, char *original_file)
 {
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error(file, NULL, strerror(errno));
+		print_error(original_file, NULL, strerror(errno));
 		return (-1);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
@@ -32,7 +32,8 @@ static int	apply_single_redir_in(char *file)
 	return (0);
 }
 
-static int	apply_single_redir_out(char *file, bool append)
+static int	apply_single_redir_out(char *file, bool append,
+								char *original_file)
 {
 	int	fd;
 	int	flags;
@@ -45,7 +46,7 @@ static int	apply_single_redir_out(char *file, bool append)
 	fd = open(file, flags, 0644);
 	if (fd == -1)
 	{
-		print_error(file, NULL, strerror(errno));
+		print_error(original_file, NULL, strerror(errno));
 		return (-1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
@@ -74,38 +75,39 @@ static int	apply_heredoc_redirection(t_cmd *cmd)
 	return (0);
 }
 
-static int	apply_file_redirections(t_cmd *cmd)
+static int	apply_file_redirections(t_cmd *cmd, t_data *data)
 {
 	t_redir	*current;
+	char	*expanded_file;
+	int		result;
 
 	current = cmd->redirects;
 	while (current)
 	{
+		expanded_file = expand_redir_filename(current->file, data);
+		if (!expanded_file)
+			return (-1);
 		if (current->type == TOKEN_REDIR_IN)
-		{
-			if (apply_single_redir_in(current->file) == -1)
-				return (-1);
-		}
+			result = apply_single_redir_in(expanded_file, current->file);
 		else if (current->type == TOKEN_REDIR_OUT)
-		{
-			if (apply_single_redir_out(current->file, false) == -1)
-				return (-1);
-		}
+			result = apply_single_redir_out(expanded_file, false, current->file);
 		else if (current->type == TOKEN_APPEND)
-		{
-			if (apply_single_redir_out(current->file, true) == -1)
-				return (-1);
-		}
+			result = apply_single_redir_out(expanded_file, true, current->file);
+		else
+			result = 0;
+		free(expanded_file);
+		if (result == -1)
+			return (-1);
 		current = current->next;
 	}
 	return (0);
 }
 
-int	apply_redirections(t_cmd *cmd)
+int	apply_redirections(t_cmd *cmd, t_data *data)
 {
 	if (!cmd)
 		return (0);
-	if (apply_file_redirections(cmd) == -1)
+	if (apply_file_redirections(cmd, data) == -1)
 		return (-1);
 	if (apply_heredoc_redirection(cmd) == -1)
 		return (-1);

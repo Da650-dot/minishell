@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 14:51:31 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:23:52 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,6 @@ bool							was_interrupted(void);
 /* ======================= PROMPT ======================= */
 char							*build_prompt(t_data *data);
 char							*build_simple_prompt(void);
-void							print_welcome_banner(void);
-void							print_simple_banner(void);
-void							print_exit_message(void);
-void							clear_screen(void);
 
 /* ======================= LEXER ======================= */
 t_token							*new_token(t_token_type type, char *value);
@@ -138,9 +134,6 @@ t_pipeline						*new_pipeline_node(t_cmd *cmd);
 t_cmd							*new_cmd(void);
 void							free_pipeline(t_pipeline *pipeline);
 void							free_cmd(t_cmd *cmd);
-void							print_pipeline(t_pipeline *pipeline);
-void							print_cmd(t_cmd *cmd, int cmd_num);
-void							test_parser(void);
 void							add_pipeline_node(t_pipeline **head,
 									t_pipeline *new);
 int								count_words_until_pipe(t_token *tokens);
@@ -204,11 +197,11 @@ void							execute_pipeline(t_pipeline *pipeline,
 /* ======================= EXECUTOR HELPERS (scaffolding) =========== */
 char							*resolve_command_path(char *cmd, t_data *data);
 int								spawn_and_exec(char *path, char **args,
-									char **envp, t_cmd *cmd);
+									char **envp, t_cmd *cmd, t_data *data);
 int								execute_external(t_cmd *cmd, t_data *data);
 
 /* Redirections helpers */
-int								apply_redirections(t_cmd *cmd);
+int								apply_redirections(t_cmd *cmd, t_data *data);
 int								save_stdio(t_redirect_save *save);
 int								restore_stdio(t_redirect_save *save);
 int								prepare_heredoc(t_cmd *cmd, t_data *data);
@@ -219,7 +212,7 @@ int								handle_heredoc_line(char *delim, bool quoted,
 int								read_heredoc_lines(char *delim, bool quoted,
 									int write_fd, t_data *data);
 
-/* Funções utilitárias (se outras partes do código precisarem) */
+/* Funções utilitárias */
 char							*extract_delimiter(char *delim, bool *quoted);
 int								create_heredoc_pipe(int *pipefd);
 int								process_expanded_line(char *line, int fd,

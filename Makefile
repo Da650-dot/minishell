@@ -29,7 +29,6 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(PARSER_DIR)/parser_args.c \
 	   $(PARSER_DIR)/parser_redirect.c \
 	   $(PARSER_DIR)/parser_free.c \
-	   $(PARSER_DIR)/parser_debug.c \
 	   $(SIGNALS_DIR)/signals.c \
 	   $(SIGNALS_DIR)/signals_heredoc.c \
 	$(SIGNALS_DIR)/globals.c \
@@ -66,8 +65,7 @@ SRCS = $(MAIN_DIR)/main.c \
 	   $(EXPANSION_DIR)/expansion_helpers.c \
 	   $(EXPANSION_DIR)/expansion_quotes.c \
 		 $(EXPANSION_DIR)/expansion_utils.c \
-		 $(PERMISSIONS_DIR)/permissions.c \
-		 $(UTILS_DIR)/prompt_banner.c
+		 $(PERMISSIONS_DIR)/permissions.c
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

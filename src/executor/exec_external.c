@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:26 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 07:11:48 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:15:37 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	execute_external(t_cmd *cmd, t_data *data)
 		print_error(cmd->args[0], NULL, "command not found");
 		return (127);
 	}
-	exit_code = spawn_and_exec(path, cmd->args, data->envp, cmd);
+	exit_code = spawn_and_exec(path, cmd->args, data->envp, cmd, data);
 	free(path);
 	return (exit_code);
 }

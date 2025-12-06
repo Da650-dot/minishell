@@ -27,7 +27,6 @@ static void	process_input(t_data *data, char *input)
 		data->exit_status = 2;
 		return ;
 	}
-	print_pipeline(pipeline);
 	process_pipeline(pipeline, data);
 	free_pipeline(pipeline);
 }
@@ -48,10 +47,7 @@ static char	*get_user_input(t_data *data)
 static bool	handle_user_input(t_data *data, char *input)
 {
 	if (!input)
-	{
-		print_exit_message();
 		return (false);
-	}
 	if (was_interrupted())
 	{
 		free(input);
@@ -86,7 +82,6 @@ int	main(int argc, char **argv, char **envp)
 
 	if (handle_args(argc, argv))
 		return (0);
-	print_welcome_banner();
 	init_data(&data, envp);
 	setup_signals_interactive();
 	repl_loop(&data);

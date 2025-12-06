@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:10:10 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/04 11:26:44 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:14:49 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,14 @@ char	*expand_variables(char *str, t_data *data)
 	final = remove_quotes(expanded);
 	free(expanded);
 	return (final);
+}
+
+char	*expand_redir_filename(char *filename, t_data *data)
+{
+	char	*expanded;
+
+	if (!filename)
+		return (NULL);
+	expanded = expand_variables(filename, data);
+	return (expanded);
 }

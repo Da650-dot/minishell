@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:52:10 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:52:11 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:15:37 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	execute_builtin_with_redirections(t_cmd *cmd, t_data *data)
 		print_error("dup", NULL, "failed to backup stdio");
 		return (1);
 	}
-	if (apply_redirections(cmd) == -1)
+	if (apply_redirections(cmd, data) == -1)
 	{
 		restore_stdio(&save);
 		return (1);

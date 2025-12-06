@@ -51,6 +51,5 @@ static void	execute_simple_builtin(t_pipeline *pipeline, t_data *data)
 void	process_pipeline(t_pipeline *pipeline, t_data *data)
 {
 	expand_pipeline_vars(pipeline, data);
-	print_pipeline(pipeline);
 	execute_simple_builtin(pipeline, data);
 }
