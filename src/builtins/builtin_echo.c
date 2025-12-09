@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:21 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:50:22 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 14:34:18 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	builtin_echo(char **args)
 	if (!args)
 		return (ERROR);
 	i = parse_flags(args, &newline, &escape);
-	if (i > 1)
-		newline = false;
 	while (args[i])
 	{
 		if (escape)

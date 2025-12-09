@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:26:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:26:08 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ char	*find_executable(char *cmd, char **envp)
 	if (ft_strchr(cmd, '/'))
 	{
 		if (check_execute_permission(cmd))
-			return (ft_strdup(cmd));
+		{
+			result = ft_strdup(cmd);
+			return (result);
+		}
 		return (NULL);
 	}
 	path_env = get_env("PATH", envp);

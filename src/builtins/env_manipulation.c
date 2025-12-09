@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:21 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:51:22 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:18:22 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	find_env_index(char **envp, char *key)
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], key, key_len) == 0
-			&& envp[i][key_len] == '=')
+			&& (envp[i][key_len] == '=' || envp[i][key_len] == '\0'))
 			return (i);
 		i++;
 	}

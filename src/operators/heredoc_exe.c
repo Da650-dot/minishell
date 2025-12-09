@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_exe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:42:47 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 19:01:32 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:09:53 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ static int	execute_heredoc(t_cmd *cmd, char *delim, bool quoted, t_data *data)
 	int		status;
 
 	if (create_heredoc_pipe(pipefd) == -1)
-		return (free(delim), -1);
+	{
+		free(delim);
+		return (-1);
+	}
 	pid = fork_heredoc_child(pipefd, delim, quoted, data);
 	if (pid == -1)
 		return (-1);
@@ -66,18 +69,24 @@ static int	execute_heredoc(t_cmd *cmd, char *delim, bool quoted, t_data *data)
 
 static int	should_prepare_heredoc(t_cmd *cmd)
 {
-	return (cmd && cmd->heredoc_delim);
+	if (!cmd)
+		return (0);
+	if (!cmd->heredoc_delim)
+		return (0);
+	return (1);
 }
 
 int	prepare_heredoc(t_cmd *cmd, t_data *data)
 {
 	char	*delim;
 	bool	quoted;
+	int		result;
 
 	if (!should_prepare_heredoc(cmd))
 		return (0);
 	delim = extract_delimiter(cmd->heredoc_delim, &quoted);
 	if (!delim)
 		return (-1);
-	return (execute_heredoc(cmd, delim, quoted, data));
+	result = execute_heredoc(cmd, delim, quoted, data);
+	return (result);
 }

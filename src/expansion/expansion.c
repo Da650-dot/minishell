@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:10:10 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 19:14:08 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static char	*handle_expansion(char *str, int *i, t_data *data, bool in_single)
 		c[0] = str[*i];
 		c[1] = '\0';
 		(*i)++;
-		return (ft_strdup(c));
+		temp = ft_strdup(c);
+		return (temp);
 	}
 }
 

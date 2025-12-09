@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:22:38 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:22:39 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:04:46 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,46 @@ static void	add_redir(t_redir **head, t_redir *new)
 	}
 }
 
+static bool	process_heredoc(t_cmd *cmd, t_token *filename)
+{
+	if (cmd->heredoc_delim)
+		free(cmd->heredoc_delim);
+	cmd->heredoc_delim = ft_strdup(filename->value);
+	return (true);
+}
+
+static bool	process_redirect(t_cmd *cmd, t_token *redirect, t_token *filename)
+{
+	t_redir	*new;
+
+	new = new_redir(redirect->type, filename->value);
+	if (!new)
+		return (false);
+	add_redir(&cmd->redirects, new);
+	return (true);
+}
+
 bool	handle_redirect_token(t_cmd *cmd, t_token **token)
 {
 	t_token	*redirect;
 	t_token	*filename;
-	t_redir	*new;
 
 	redirect = *token;
 	filename = redirect->next;
 	if (!filename || filename->type != TOKEN_WORD)
-		return (print_error("syntax error", "expected filename", NULL), false);
+	{
+		print_error("syntax error", "expected filename", NULL);
+		return (false);
+	}
 	if (redirect->type == TOKEN_HEREDOC)
 	{
-		if (cmd->heredoc_delim)
-			free(cmd->heredoc_delim);
-		cmd->heredoc_delim = ft_strdup(filename->value);
+		if (!process_heredoc(cmd, filename))
+			return (false);
 	}
 	else
 	{
-		new = new_redir(redirect->type, filename->value);
-		if (!new)
+		if (!process_redirect(cmd, redirect, filename))
 			return (false);
-		add_redir(&cmd->redirects, new);
 	}
 	*token = filename->next;
 	return (true);

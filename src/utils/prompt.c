@@ -3,31 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:31:46 by jgiancol          #+#    #+#             */
-/*   Updated: 2025/12/06 18:58:06 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:02:58 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*get_current_dir(char **envp)
+static char	*simplify_home_path(char *cwd, char *home)
 {
-	char	*cwd;
-	char	*home;
 	char	*simplified;
 	int		home_len;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (ft_strdup("?"));
-	home = get_env("HOME", envp);
-	if (!home)
-	{
-		free(cwd);
-		return (ft_strdup(""));
-	}
 	home_len = ft_strlen(home);
 	if (ft_strncmp(cwd, home, home_len) == 0)
 	{
@@ -39,6 +28,24 @@ static char	*get_current_dir(char **envp)
 		return (simplified);
 	}
 	return (cwd);
+}
+
+static char	*get_current_dir(char **envp)
+{
+	char	*cwd;
+	char	*home;
+	char	*result;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		result = ft_strdup("?");
+		return (result);
+	}
+	home = get_env("HOME", envp);
+	if (!home)
+		return (cwd);
+	return (simplify_home_path(cwd, home));
 }
 
 static char	*append_to_prompt(char *prompt, char *to_append)
@@ -67,5 +74,8 @@ char	*build_prompt(t_data *data)
 
 char	*build_simple_prompt(void)
 {
-	return (ft_strdup("minishell> "));
+	char	*result;
+
+	result = ft_strdup("minishell> ");
+	return (result);
 }

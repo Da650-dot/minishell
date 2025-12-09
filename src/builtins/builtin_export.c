@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:57 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:50:58 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:12:58 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,11 @@ static void	print_export_env(char **envp)
 
 static bool	export_single_var(char *arg, t_data *data)
 {
-	char	*equals;
-
 	if (!is_valid_identifier(arg))
 	{
 		print_error("export", arg, "not a valid identifier");
 		return (false);
 	}
-	equals = ft_strchr(arg, '=');
-	if (!equals)
-		return (true);
 	data->envp = add_env_var(data->envp, arg);
 	return (true);
 }

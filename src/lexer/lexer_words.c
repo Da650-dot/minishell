@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:11:49 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:11:50 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ char	*handle_quotes(char *input, int *i, char quote_char)
 	while (input[*i] && input[*i] != quote_char)
 		(*i)++;
 	if (input[*i] != quote_char)
-		return (print_error("syntax error", "unclosed quotes", NULL), NULL);
+	{
+		print_error("syntax error", "unclosed quotes", NULL);
+		return (NULL);
+	}
 	(*i)++;
 	len = *i - start;
 	result = malloc(len + 1);
@@ -65,7 +68,10 @@ static char	*handle_word_char(char *input, int *i, char *word)
 	{
 		quoted = handle_quotes(input, i, input[*i]);
 		if (!quoted)
-			return (free(word), NULL);
+		{
+			free(word);
+			return (NULL);
+		}
 		temp = word;
 		word = ft_strjoin(word, quoted);
 		free(temp);

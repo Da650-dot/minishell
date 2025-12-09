@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:53 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 16:50:54 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:09:53 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	get_exit_code(char *arg)
 	long	num;
 	int		sign;
 	int		i;
+	int		result;
 
 	num = 0;
 	sign = 1;
@@ -50,7 +51,8 @@ static int	get_exit_code(char *arg)
 		num = num * 10 + (arg[i] - '0');
 		i++;
 	}
-	return ((int)((sign * num) % 256));
+	result = (int)((sign * num) % 256);
+	return (result);
 }
 
 int	builtin_exit(char **args, t_data *data)

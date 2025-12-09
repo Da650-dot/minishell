@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:43 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 14:45:35 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*extract_delimiter(char *delim, bool *quoted)
 			return (result);
 		}
 	}
-	return (ft_strdup(delim));
+	result = ft_strdup(delim);
+	return (result);
 }
 
 /* Função 2/5 - Cria pipe */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 19:16:46 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:01 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	handle_parent_process(pid_t pid)
 static int	do_spawn_and_exec(t_exec_args *exec_args)
 {
 	pid_t	pid;
+	int		result;
 
 	pid = fork();
 	if (pid == -1)
@@ -67,10 +68,14 @@ static int	do_spawn_and_exec(t_exec_args *exec_args)
 	}
 	if (pid == 0)
 		execute_child_process(exec_args);
-	return (handle_parent_process(pid));
+	result = handle_parent_process(pid);
+	return (result);
 }
 
 int	spawn_and_exec(t_exec_args *args)
 {
-	return (do_spawn_and_exec(args));
+	int	result;
+
+	result = do_spawn_and_exec(args);
+	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:04:27 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 19:14:08 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:03 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,23 @@ char	*get_var_name(char *str, int *i)
 	int		start;
 	int		len;
 	char	*name;
+	char	*result;
 
 	start = *i;
 	if (str[*i] == '?')
 	{
 		(*i)++;
-		return (ft_strdup("?"));
+		result = ft_strdup("?");
+		return (result);
 	}
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 		(*i)++;
 	len = *i - start;
 	if (len == 0)
-		return (ft_strdup("$"));
+	{
+		result = ft_strdup("$");
+		return (result);
+	}
 	name = malloc(len + 1);
 	if (!name)
 		return (NULL);
@@ -50,17 +55,26 @@ char	*append_str(char *result, char *to_append)
 static char	*get_var_value(char *var_name, t_data *data)
 {
 	char	*var_value;
+	char	*result;
 
 	if (ft_strncmp(var_name, "?", 2) == 0 && var_name[1] == '\0')
-		return (ft_itoa(data->exit_status));
+	{
+		result = ft_itoa(data->exit_status);
+		return (result);
+	}
 	var_value = get_env(var_name, data->envp);
 	if (!var_value)
 	{
 		if (ft_strncmp(var_name, "$", 2) == 0 && var_name[1] == '\0')
-			return (ft_strdup("$"));
-		return (ft_strdup(""));
+		{
+			result = ft_strdup("$");
+			return (result);
+		}
+		result = ft_strdup("");
+		return (result);
 	}
-	return (ft_strdup(var_value));
+	result = ft_strdup(var_value);
+	return (result);
 }
 
 char	*process_dollar(char *str, int *i, t_data *data)
@@ -70,7 +84,10 @@ char	*process_dollar(char *str, int *i, t_data *data)
 
 	(*i)++;
 	if (!str[*i])
-		return (ft_strdup("$"));
+	{
+		result = ft_strdup("$");
+		return (result);
+	}
 	var_name = get_var_name(str, i);
 	if (!var_name)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:13:00 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/03 17:16:36 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:05 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ t_token	*tokenize(char *input)
 		else
 			new = process_word(input, &i);
 		if (!new || !add_token_safe(&tokens, new))
-			return (free_tokens(tokens), NULL);
+		{
+			free_tokens(tokens);
+			return (NULL);
+		}
 	}
 	return (tokens);
 }

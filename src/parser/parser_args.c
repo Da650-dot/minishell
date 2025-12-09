@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:18:55 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/04 11:29:24 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:05 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ bool	fill_args(t_cmd *cmd, t_token *tokens, int word_count)
 	while (current && current->type != TOKEN_PIPE)
 	{
 		if (!process_token(cmd, &current, &i))
-			return (free_args_partial(cmd, i), false);
+		{
+			free_args_partial(cmd, i);
+			return (false);
+		}
 	}
 	return (true);
 }

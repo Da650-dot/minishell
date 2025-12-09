@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:26 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 19:17:05 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:03 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 char	*resolve_command_path(char *cmd, t_data *data)
 {
+	char	*result;
+
 	if (!cmd || !cmd[0])
 		return (NULL);
-	return (find_executable(cmd, data->envp));
+	result = find_executable(cmd, data->envp);
+	return (result);
 }
 
 int	execute_external(t_cmd *cmd, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:17:22 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/04 11:28:45 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ char	**dup_envp(char **envp)
 	{
 		new_envp[i] = ft_strdup(envp[i]);
 		if (!new_envp[i])
-			return (free_array(new_envp), NULL);
+		{
+			free_array(new_envp);
+			return (NULL);
+		}
 		i++;
 	}
 	new_envp[i] = NULL;
