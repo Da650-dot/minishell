@@ -6,12 +6,11 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:52:17 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/10 11:55:56 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:59:20 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static void	get_pipe_fds(int i, t_exec_ctx *ctx)
 {
