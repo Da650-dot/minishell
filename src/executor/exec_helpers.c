@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/09 18:03:01 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:48:26 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	map_exec_errno(int err)
 	return (127);
 }
 
-static int	execute_child_process(t_exec_args *args)
+static void	execute_child_process(t_exec_args *args)
 {
 	setup_signals_default();
 	if (args->cmd && apply_redirections(args->cmd, args->data) == -1)
@@ -55,10 +55,9 @@ static int	handle_parent_process(pid_t pid)
 	return (1);
 }
 
-static int	do_spawn_and_exec(t_exec_args *exec_args)
+int	spawn_and_exec(t_exec_args *args)
 {
 	pid_t	pid;
-	int		result;
 
 	pid = fork();
 	if (pid == -1)
@@ -67,15 +66,6 @@ static int	do_spawn_and_exec(t_exec_args *exec_args)
 		return (1);
 	}
 	if (pid == 0)
-		execute_child_process(exec_args);
-	result = handle_parent_process(pid);
-	return (result);
-}
-
-int	spawn_and_exec(t_exec_args *args)
-{
-	int	result;
-
-	result = do_spawn_and_exec(args);
-	return (result);
+		execute_child_process(args);
+	return (handle_parent_process(pid));
 }

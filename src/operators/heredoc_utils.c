@@ -6,13 +6,12 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:43 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:52:51 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Função 1/5 - Extrai delimitador */
 char	*extract_delimiter(char *delim, bool *quoted)
 {
 	size_t	len;
@@ -36,7 +35,6 @@ char	*extract_delimiter(char *delim, bool *quoted)
 	return (result);
 }
 
-/* Função 2/5 - Cria pipe */
 int	create_heredoc_pipe(int *pipefd)
 {
 	if (pipe(pipefd) == -1)
@@ -47,7 +45,6 @@ int	create_heredoc_pipe(int *pipefd)
 	return (0);
 }
 
-/* Função 3/5 - Processa linha com expansão */
 int	process_expanded_line(char *line, int fd, t_data *data)
 {
 	char	*expanded;
@@ -62,7 +59,6 @@ int	process_expanded_line(char *line, int fd, t_data *data)
 	return (0);
 }
 
-/* Função 4/5 - Processa linha quoted */
 void	process_quoted_line(char *line, int fd)
 {
 	write(fd, line, ft_strlen(line));
@@ -70,7 +66,6 @@ void	process_quoted_line(char *line, int fd)
 	free(line);
 }
 
-/* Função 5/5 - Limpa recursos */
 void	cleanup_heredoc_resources(int *pipefd, char *delim)
 {
 	if (delim)

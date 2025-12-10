@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_fork.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:52:17 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 06:54:51 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:55:56 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* create_pipes moved to pipeline_fork_helpers.c */
 
 static void	get_pipe_fds(int i, t_exec_ctx *ctx)
 {
@@ -66,8 +65,6 @@ static int	fork_pipeline(t_exec_ctx *ctx, pid_t **pids)
 	}
 	return (1);
 }
-
-/* wait_all moved to pipeline_fork_helpers.c */
 
 void	execute_multi_pipeline(t_pipeline *pipeline, t_data *data, int n)
 {

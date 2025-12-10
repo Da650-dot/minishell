@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:10:10 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:53:50 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,14 @@ static void	update_quotes(char c, bool *in_single, bool *in_double)
 
 static char	*handle_expansion(char *str, int *i, t_data *data, bool in_single)
 {
-	char	*temp;
 	char	c[2];
 
 	if (str[*i] == '$' && str[*i + 1] && !in_single)
-	{
-		temp = process_dollar(str, i, data);
-		return (temp);
-	}
-	else
-	{
-		c[0] = str[*i];
-		c[1] = '\0';
-		(*i)++;
-		temp = ft_strdup(c);
-		return (temp);
-	}
+		return (process_dollar(str, i, data));
+	c[0] = str[*i];
+	c[1] = '\0';
+	(*i)++;
+	return (ft_strdup(c));
 }
 
 char	*expand_variables_raw(char *str, t_data *data)
