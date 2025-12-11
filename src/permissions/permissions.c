@@ -6,12 +6,11 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:26:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/11 15:13:20 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:33:53 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/stat.h>
 
 bool	check_execute_permission(char *path)
 {

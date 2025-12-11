@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/11 15:19:11 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:34:11 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <sys/stat.h>
 
 # define SUCCESS 0
 # define ERROR 1
