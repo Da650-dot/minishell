@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:29:52 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/04 11:48:22 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:13:19 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,4 @@ bool	validate_tokens(t_token *tokens)
 		current = current->next;
 	}
 	return (true);
-}
-
-int	count_tokens(t_token *tokens)
-{
-	int		count;
-	t_token	*current;
-
-	count = 0;
-	current = tokens;
-	while (current)
-	{
-		count++;
-		current = current->next;
-	}
-	return (count);
 }

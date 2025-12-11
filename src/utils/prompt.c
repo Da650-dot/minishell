@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:31:46 by jgiancol          #+#    #+#             */
-/*   Updated: 2025/12/09 18:02:58 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:23:21 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,10 @@ static char	*get_current_dir(char **envp)
 {
 	char	*cwd;
 	char	*home;
-	char	*result;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-	{
-		result = ft_strdup("?");
-		return (result);
-	}
+		return (ft_strdup("?"));
 	home = get_env("HOME", envp);
 	if (!home)
 		return (cwd);
@@ -62,7 +58,6 @@ char	*build_prompt(t_data *data)
 	char	*prompt;
 	char	*cwd;
 
-	(void)data;
 	cwd = get_current_dir(data->envp);
 	prompt = ft_strdup(cwd);
 	free(cwd);
@@ -70,12 +65,4 @@ char	*build_prompt(t_data *data)
 		return (prompt);
 	prompt = append_to_prompt(prompt, "$ ");
 	return (prompt);
-}
-
-char	*build_simple_prompt(void)
-{
-	char	*result;
-
-	result = ft_strdup("minishell> ");
-	return (result);
 }

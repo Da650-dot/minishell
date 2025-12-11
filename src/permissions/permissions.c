@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:26:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/09 18:03:04 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:13:20 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,6 @@ bool	check_execute_permission(char *path)
 	if (!S_ISREG(statbuf.st_mode))
 		return (false);
 	if (access(path, X_OK) == 0)
-		return (true);
-	return (false);
-}
-
-bool	check_read_permission(char *path)
-{
-	if (!path)
-		return (false);
-	if (access(path, R_OK) == 0)
-		return (true);
-	return (false);
-}
-
-bool	check_write_permission(char *path)
-{
-	if (!path)
-		return (false);
-	if (access(path, W_OK) == 0)
 		return (true);
 	return (false);
 }

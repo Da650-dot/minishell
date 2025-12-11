@@ -6,11 +6,13 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:27:33 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 14:55:10 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:23:09 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t	g_signal = 0;
 
 void	handle_sigint(int signum)
 {
@@ -43,9 +45,6 @@ void	setup_signals_execution(void)
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
-	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = SIG_IGN;
-	sa.sa_flags = 0;
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
@@ -57,9 +56,6 @@ void	setup_signals_default(void)
 	sa.sa_handler = SIG_DFL;
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
-	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = SIG_DFL;
-	sa.sa_flags = 0;
 	sigaction(SIGQUIT, &sa, NULL);
 }
 

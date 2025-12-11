@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:26:58 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/06 19:00:54 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:13:16 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,4 @@ bool	was_interrupted(void)
 		return (true);
 	}
 	return (false);
-}
-
-void	reset_heredoc_signal(void)
-{
-	g_signal = 0;
 }

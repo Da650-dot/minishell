@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:19:07 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/09 16:13:30 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:19:11 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,12 @@ bool							was_interrupted(void);
 
 /* ======================= PROMPT ======================= */
 char							*build_prompt(t_data *data);
-char							*build_simple_prompt(void);
 
 /* ======================= LEXER ======================= */
 t_token							*new_token(t_token_type type, char *value);
 t_token							*tokenize(char *input);
 void							add_token(t_token **head, t_token *new_token);
 void							free_tokens(t_token *tokens);
-void							print_tokens(t_token *tokens);
 char							*extract_word(char *input, int *i);
 t_token							*handle_redirect(char *input, int *i);
 char							*ft_append_char(char *str, char c);
@@ -166,7 +164,7 @@ int								builtin_cd(char **args, t_data *data);
 int								builtin_pwd(void);
 int								builtin_export(char **args, t_data *data);
 int								builtin_unset(char **args, t_data *data);
-int								builtin_env(char **envp);
+int								builtin_env(char **args, t_data *data);
 int								builtin_exit(char **args, t_data *data);
 bool							is_builtin(char *cmd);
 int								execute_builtin(char **args, t_data *data);
@@ -181,12 +179,9 @@ int								find_env_index(char **envp, char *key);
 bool							is_operator(t_token *token);
 bool							is_redirect(t_token *token);
 bool							validate_tokens(t_token *tokens);
-int								count_tokens(t_token *tokens);
 
 /* ======================= PERMISSIONS ======================= */
 bool							check_execute_permission(char *path);
-bool							check_read_permission(char *path);
-bool							check_write_permission(char *path);
 char							*find_executable(char *cmd, char **envp);
 
 /* ======================= EXPANSION ======================= */

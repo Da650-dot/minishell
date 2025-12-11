@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiancol <jgiancol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:18:01 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/05 07:18:50 by jgiancol         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:23:15 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	main(int argc, char **argv, char **envp)
 	if (handle_args(argc, argv))
 		return (0);
 	init_data(&data, envp);
-	setup_signals_interactive();
 	repl_loop(&data);
 	cleanup_data(&data);
 	return (data.exit_status);

@@ -6,7 +6,7 @@
 /*   By: dde-sou2 <danilo.bleach12@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:51:09 by dde-sou2          #+#    #+#             */
-/*   Updated: 2025/12/10 11:39:32 by dde-sou2         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:54:51 by dde-sou2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	execute_builtin(char **args, t_data *data)
 	if (ft_strncmp(args[0], "unset", 6) == 0 && args[0][5] == '\0')
 		return (builtin_unset(args, data));
 	if (ft_strncmp(args[0], "env", 4) == 0 && args[0][3] == '\0')
-		return (builtin_env(data->envp));
+		return (builtin_env(args, data));
 	if (ft_strncmp(args[0], "exit", 5) == 0 && args[0][4] == '\0')
 		return (builtin_exit(args, data));
 	return (ERROR);
